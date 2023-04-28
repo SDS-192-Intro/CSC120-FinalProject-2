@@ -21,15 +21,14 @@ public class Room {
         System.out.println(toPrint);
     }
 
-    public static void main(String[] args) {
-        Room bedroom=new Room("bedroom");
-        Item bed=new Item("bed","A cozy twin bed in the corner of the room.",false, false,true,false,true);
-        bedroom.addItem(bed);
-        bedroom.lookAround();
+    public boolean isInRoom(Item i){
+        if (items.contains(i)){
+            return true;
+        }else{
+            return false;
+        }
+
     }
-
-
-
 
 
 }
