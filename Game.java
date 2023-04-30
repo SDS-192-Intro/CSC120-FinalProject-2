@@ -202,18 +202,23 @@ public class Game {
             String response=in.nextLine();
 
             //First, try to parse to see if you need to change location 
-            try{
-                //turn response into an array list of words 
-                ArrayList<String> wordList = new ArrayList<String>();
-                for(String word : response.split(" ")) {
-                    wordList.add(word);
-                }
 
+            //turn response into an array list of words 
+            ArrayList<String> wordList = new ArrayList<String>();
+            for(String word : response.split(" ")) {
+                wordList.add(word);
+            }
+
+            //check that response is more than one word
+            if(wordList.size()<2){
+                System.out.println("Your response should be more than one word. Try saying 'Go to' a room or an item, or 'Look around' or 'Show Options' once you're at an item");
+                continue;
+            }
+
+            try{
                 String word1=wordList.get(0);
                 String word2=wordList.get(1);
                 String word3=wordList.get(2);
-    
-    
                 if (word1.equals("Go")||word1.equals("go")&& word2.equals("to")&& this.isARoom(word3)){
                    //make array list with all the neighbors for a given room
                    ArrayList<Room> neighbors=this.getNeighbors(locationAsRoom);
@@ -228,10 +233,24 @@ public class Game {
                    }
                }
             } catch (Exception e){
-                //I don't care if it doesn't work 
+                
             }
 
-
+            if (this.location.equals("kitchen")){
+                this.kitchen.conversation(wordList);
+            }
+            if(this.location.equals("garden")){
+                this.garden.conversation(wordList);
+            }
+            if(this.location.equals("bedroom")){
+                this.bedroom.conversation(wordList);
+            }
+            if(this.location.equals("bathroom")){
+                this.bathroom.conversation(wordList);
+            }
+            if(this.location.equals("parlor")){
+                this.parlor.conversation(wordList);
+            }
 
             
 

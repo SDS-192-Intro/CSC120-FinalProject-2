@@ -39,13 +39,33 @@ public class Room {
         }
     }
 
+    public boolean isInRoom(String item){
+        ArrayList<String> stringItems=new ArrayList<String>();
+        for (Item i :items){
+            stringItems.add(i.getName());
+        }
+        if (stringItems.contains(item)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public void conversation(ArrayList<String> wordList){
         String word1=wordList.get(0);
         String word2=wordList.get(1);
-        String word3=wordList.get(2);
-
+        
+        //check if they say "look around"
         if (word1.equals("Look")||word1.equals("look")&&word2.equals("around")){
-            this.lookAround();
+            System.out.println(this.lookAround());
+        }
+
+        //check if they say 'go to' that the item is in room 
+        try{
+            if(word1.equals("Go")||word1.equals("go")&& word2.equals("to"))
+        } catch (Exception e){
+            //I don't care 
         }
     }
 
