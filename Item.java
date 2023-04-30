@@ -7,9 +7,13 @@ public class Item {
     boolean isClimbable;
     boolean isTakeable;
     boolean isJumpOffable;
+    boolean onItem;
+    Item parent;
+    boolean hasItem;
+    Item child; 
 
     //constructor
-    public Item(String name, String description, boolean isEdible, boolean isDrinkable, boolean isClimbable, boolean isTakeable, boolean isJumpOffable){
+    public Item(String name, String description, boolean isEdible, boolean isDrinkable, boolean isClimbable, boolean isTakeable, boolean isJumpOffable, boolean onItem, boolean hasItem){
         this.name=name;
         this.description=description;
         this.isEdible=isEdible;
@@ -17,6 +21,15 @@ public class Item {
         this.isClimbable=isClimbable;
         this.isTakeable=isTakeable;
         this.isJumpOffable=isJumpOffable;
+        this.onItem=onItem;
+        if (this.onItem){
+            this.parent=null;
+        }
+        this.hasItem=hasItem;
+        if (this.hasItem){
+            this.child=null;
+        }
+
     }
 
     //show options method 
@@ -39,5 +52,13 @@ public class Item {
             toPrint+="You can jump off of the "+this.name+"\n";
         }
         System.out.println(toPrint);
+    }
+
+    public void addParent(Item i){
+        this.parent=i;
+    }
+
+    public void addChild(Item i){
+        this.child=i;
     }
 }

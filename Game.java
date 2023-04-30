@@ -17,7 +17,7 @@ public class Game {
     Kitchen kitchen;
     Garden garden;
     Bedroom bedroom;
-    LivingRoom living;
+    Parlor parlor;
     Bathroom bathroom;
     Item blanket;
     Item windowSeat;
@@ -64,12 +64,12 @@ public class Game {
         this.bedroom.addItem(blanket);
         this.bedroom.addItem(dresser);
 
-        //living room 
-        LivingRoom living=new LivingRoom("living room", "a homey living room");
-        this.living=living; 
+        //parlor room 
+        Parlor parlor=new Parlor("parlor room", "a homey parlor room");
+        this.parlor=parlor;
         Item windowSeat=new Item("window seat","a cozy yet bare window seat drenched in sunlight",false,false,true, false,true,false,false);
         this.windowSeat=windowSeat;
-        this.living.addItem(windowSeat);
+        this.parlor.addItem(windowSeat);
 
         //bathroom
         Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom");
@@ -86,11 +86,11 @@ public class Game {
         //Build graph 
         ImmutableGraph<Room> house = GraphBuilder.undirected()
             .<Room>immutable()
-            .putEdge(kitchen,bedroom)
-            .putEdge(kitchen,garden)
-            .putEdge(kitchen,living)
-            .putEdge(living,bedroom)
-            .putEdge(bedroom,bathroom)
+            .putEdge(this.kitchen,this.bedroom)
+            .putEdge(this.kitchen,this.garden)
+            .putEdge(this.kitchen,this.parlor)
+            .putEdge(this.parlor,this.bedroom)
+            .putEdge(this.bedroom,this.bathroom)
             .build();
 
         //set the house to this.map
@@ -107,7 +107,7 @@ public class Game {
 
     //method to see if cat can nap
     public boolean canNap(){
-        if(this.location.equals(this.living.getName())&& this.haveDrunk && this.haveEaten && this.holding==this.blanket&&this.climbedOn==this.windowSeat){
+        if(this.location.equals(this.parlor.getName())&& this.haveDrunk && this.haveEaten && this.holding==this.blanket&&this.climbedOn==this.windowSeat){
             return true;
         }
         else{
@@ -136,10 +136,32 @@ public class Game {
     }
 
     public boolean isARoom(String room){
-        if (room.equals("bathroom") || room.equals("bedroom") || room.equals("garden")|| room.equals("living")||room.equals("kitchen")){
+        if (room.equals("bathroom") || room.equals("bedroom") || room.equals("garden")|| room.equals("parlor")||room.equals("kitchen")){
             return true;
         }else{
             return false;
+        }
+    }
+
+    public Room turnNameToRoom(String name){
+        if(name.equals("kitchen")){
+
+        }
+        if(name.equals("bathroom")){
+            return this.bathroom;
+        }
+        if(name.equals("bedroom")){
+            return this.bedroom;
+        }
+        if(name.equals("garden")){
+            return this.kitchen;
+        }
+        if (name.equals("parlor")){
+            return this.parlor;
+        }
+        else{
+            //change 
+            return this.kitchen;
         }
     }
 
@@ -148,9 +170,16 @@ public class Game {
         System.out.println("* have eaten");
         System.out.println("* have drunk something");
         System.out.println("* have a blanket to sleep on");
-        System.out.println("* be in direct sunlight");
-        System.out.println("But be careful! Time is running out-- the sun is setting, and you have to get a good nap in before the sunset");
-
+        System.out.println("* be in direct sunlight\n");
+        System.out.println("But be careful! Time is running out-- the sun is setting, and you have to get a good nap in before the sunset\n\n");
+        System.out.println("In this house, there is: ");
+        System.out.println("* A kitchen, "+this.kitchen.getDescription());
+        System.out.println("* A garden, "+this.garden.getDescription());
+        System.out.println("* A parlor, "+this.parlor.getDescription());
+        System.out.println("* A bedroom, "+this.bedroom.getDescription());
+        System.out.println("* A bathroom, "+this.bathroom.getDescription());
+        System.out.println("\nYou can 'Go to' a room, 'Go to' something within a room, 'Look around' to see what's in a room, and 'Show options' if you have gone to an object");
+        System.out.println("\nRight now, you are in the kitchen. "+this.kitchen.lookAround());
         //put timer here
 
         in=new Scanner(System.in);
@@ -169,13 +198,26 @@ public class Game {
     
     
                 if (word1.equals("Go")||word1.equals("go")&& word2.equals("to")&& this.isARoom(word3)){
-                    this.location=word3;
-                    System.out.println("Changed current location");
+                   //make array list with all the neighbors for a given room
+                    Room locationAsRoom=this.turnNameToRoom(this.location);
+                    ArrayList<Room> neighbors=this.getNeighbors(locationAsRoom);
+
+                    if(neighbors.contains(this.turnNameToRoom(word3))){
+                        this.location=word3;
+                        System.out.println("Changed current location");
+                    }
+                    else{
+                        System.out.println("This room is not a neighbor. The "+this.location+" connects to: ");
+                        this.printNeighbors(locationAsRoom);
+                    }
                 }
             } catch (Exception e){
                 //I don't care if it doesn't work 
             }
-            
+
+            if(this.location.equals("kitchen"));
+
+
             
 
         }

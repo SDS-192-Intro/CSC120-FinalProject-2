@@ -23,12 +23,12 @@ public class Room {
         items.add(i);
     }
 
-    public void lookAround(){
-        String toPrint="In this room, there is: \n";
+    public String lookAround(){
+        String toReturn="In this room, there is: \n";
         for (int i=0; i<items.size(); i++){
-           toPrint+=items.get(i).description+"\n";
+           toReturn+=items.get(i).description+"\n";
         }
-        System.out.println(toPrint);
+        return toReturn;
     }
 
     public boolean isInRoom(Item i){
