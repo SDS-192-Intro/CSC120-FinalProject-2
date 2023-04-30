@@ -134,6 +134,67 @@ public class Game {
             System.out.println(r.getName());
         }    
     }
+
+    public boolean isARoom(String room){
+        if (room.equals("bathroom") || room.equals("bedroom") || room.equals("garden")|| room.equals("living")||room.equals("kitchen"))){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Room turnNameToRoom(String name){
+        if(name.equals("kitchen")){
+
+        }
+        if(name.equals("bathroom")){
+            return this.bathroom;
+        }
+        if(name.equals("bedroom")){
+            return this.bedroom;
+        }
+        if(name.equals("garden")){
+            return this.kitchen;
+        }
+        if (name.equals("living")){
+            return this.living;
+        }
+        else{
+            //change 
+            return this.kitchen;
+        }
+    }
+
+    public void play(){
+        System.out.println("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
+        System.out.println("* have eaten");
+        System.out.println("* have drunk something");
+        System.out.println("* have a blanket to sleep on");
+        System.out.println("* be in direct sunlight");
+        System.out.println("But be careful! Time is running out-- the sun is setting, and you have to get a good nap in before the sunset");
+
+        //put timer here
+
+        in=new Scanner(System.in);
+
+        while(!this.canNap()){
+            System.out.println("What would you like to do?");
+            System.out.print(">>> ");
+
+            String response=in.nextLine();
+
+            //First, try to parse to see if you need to change location 
+            String word1=response.split(" ")[0];
+            String word2=response.split(" ")[1];
+            String word3=response.split(" ")[2];
+
+
+            if (word1.equals("Go")&& word2.equals("to")&& this.isARoom(word3)){
+                this.location=word3;
+            }
+
+        }
+    }
     
 
 }
