@@ -54,6 +54,9 @@ public class Item {
         System.out.println(toPrint);
     }
 
+    public String getName(){
+        return this.name;
+    }
     public void addParent(Item i){
         this.parent=i;
     }
