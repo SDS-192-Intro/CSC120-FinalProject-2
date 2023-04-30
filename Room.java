@@ -39,5 +39,15 @@ public class Room {
         }
     }
 
+    public void conversation(ArrayList<String> wordList){
+        String word1=wordList.get(0);
+        String word2=wordList.get(1);
+        String word3=wordList.get(2);
+
+        if (word1.equals("Look")||word1.equals("look")&&word2.equals("around")){
+            this.lookAround();
+        }
+    }
+
 
 }
