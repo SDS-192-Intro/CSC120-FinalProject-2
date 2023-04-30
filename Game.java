@@ -136,32 +136,10 @@ public class Game {
     }
 
     public boolean isARoom(String room){
-        if (room.equals("bathroom") || room.equals("bedroom") || room.equals("garden")|| room.equals("living")||room.equals("kitchen"))){
+        if (room.equals("bathroom") || room.equals("bedroom") || room.equals("garden")|| room.equals("living")||room.equals("kitchen")){
             return true;
         }else{
             return false;
-        }
-    }
-
-    public Room turnNameToRoom(String name){
-        if(name.equals("kitchen")){
-
-        }
-        if(name.equals("bathroom")){
-            return this.bathroom;
-        }
-        if(name.equals("bedroom")){
-            return this.bedroom;
-        }
-        if(name.equals("garden")){
-            return this.kitchen;
-        }
-        if (name.equals("living")){
-            return this.living;
-        }
-        else{
-            //change 
-            return this.kitchen;
         }
     }
 
@@ -189,8 +167,9 @@ public class Game {
             String word3=response.split(" ")[2];
 
 
-            if (word1.equals("Go")&& word2.equals("to")&& this.isARoom(word3)){
+            if (word1.equals("Go")||word1.equals("go")&& word2.equals("to")&& this.isARoom(word3)){
                 this.location=word3;
+                System.out.println("Changed current location");
             }
 
         }
