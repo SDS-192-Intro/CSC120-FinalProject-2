@@ -4,10 +4,13 @@ public class Room {
     
     ArrayList<Item> items = new ArrayList<Item>();
     String name;
+    String description;
 
-    public Room (String name){
+    public Room (String name, String description){
         this.name=name;
+        this.description=description;
     }
+
 
     public void addItem(Item i){
         items.add(i);
@@ -27,7 +30,6 @@ public class Room {
         }else{
             return false;
         }
-
     }
 
 
