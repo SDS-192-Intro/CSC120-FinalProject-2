@@ -11,6 +11,13 @@ public class Room {
         this.description=description;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
 
     public void addItem(Item i){
         items.add(i);
