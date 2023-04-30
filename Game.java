@@ -29,7 +29,7 @@ public class Game {
         //kitchen 
         Kitchen kitchen=new Kitchen("kitchen", "A black-and-white tiled clean kitchen");
         this.kitchen=kitchen;
-        Item table=new Item("table","a sturdy wooden table", false,false,true,false,true, false,true);
+        Item table=new Item("table","A sturdy wooden table", false,false,true,false,true, false,true);
         Item milk=new Item("milk","A glass of milk",false,true,false,false,false,true,false);
         table.addChild(milk);
         milk.addParent(table);
@@ -131,7 +131,9 @@ public class Game {
     //print neighbors
     public void printNeighbors(Room current){
         for (Room r : this.getNeighbors(current)){
-            System.out.println(r.getName());
+            String room=r.getName();
+            room=room.substring(0, 1).toUpperCase() + room.substring(1);
+            System.out.println("The "+room);
         }    
     }
 
@@ -144,17 +146,17 @@ public class Game {
     }
 
     public Room turnNameToRoom(String name){
-        if(name.equals("kitchen")){
-
+        if(name.equals("kitchen")||name.equals("Kitchen")){
+            return this.kitchen;
         }
-        if(name.equals("bathroom")){
+        if(name.equals("bathroom")||name.equals("Bathroom")){
             return this.bathroom;
         }
         if(name.equals("bedroom")){
             return this.bedroom;
         }
         if(name.equals("garden")){
-            return this.kitchen;
+            return this.garden;
         }
         if (name.equals("parlor")){
             return this.parlor;
@@ -166,6 +168,7 @@ public class Game {
     }
 
     public void play(){
+
         System.out.println("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
         System.out.println("* have eaten");
         System.out.println("* have drunk something");
@@ -180,11 +183,19 @@ public class Game {
         System.out.println("* A bathroom, "+this.bathroom.getDescription());
         System.out.println("\nYou can 'Go to' a room, 'Go to' something within a room, 'Look around' to see what's in a room, and 'Show options' if you have gone to an object");
         System.out.println("\nRight now, you are in the kitchen. "+this.kitchen.lookAround());
+        System.out.println("There are doors connecting to: ");
+        this.printNeighbors(this.turnNameToRoom(this.location));
+        System.out.println();
+
         //put timer here
 
         in=new Scanner(System.in);
 
         while(!this.canNap()){
+            System.out.println();
+
+            Room locationAsRoom=this.turnNameToRoom(this.location);
+
             System.out.println("What would you like to do?");
             System.out.print(">>> ");
 
@@ -199,15 +210,15 @@ public class Game {
     
                 if (word1.equals("Go")||word1.equals("go")&& word2.equals("to")&& this.isARoom(word3)){
                    //make array list with all the neighbors for a given room
-                    Room locationAsRoom=this.turnNameToRoom(this.location);
                     ArrayList<Room> neighbors=this.getNeighbors(locationAsRoom);
+
 
                     if(neighbors.contains(this.turnNameToRoom(word3))){
                         this.location=word3;
                         System.out.println("Changed current location");
                     }
                     else{
-                        System.out.println("This room is not a neighbor. The "+this.location+" connects to: ");
+                        System.out.println("There is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
                         this.printNeighbors(locationAsRoom);
                     }
                 }
@@ -215,7 +226,6 @@ public class Game {
                 //I don't care if it doesn't work 
             }
 
-            if(this.location.equals("kitchen"));
 
 
             
