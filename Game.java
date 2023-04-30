@@ -162,15 +162,21 @@ public class Game {
             String response=in.nextLine();
 
             //First, try to parse to see if you need to change location 
-            String word1=response.split(" ")[0];
-            String word2=response.split(" ")[1];
-            String word3=response.split(" ")[2];
-
-
-            if (word1.equals("Go")||word1.equals("go")&& word2.equals("to")&& this.isARoom(word3)){
-                this.location=word3;
-                System.out.println("Changed current location");
+            try{
+                String word1=response.split(" ")[0];
+                String word2=response.split(" ")[1];
+                String word3=response.split(" ")[2];
+    
+    
+                if (word1.equals("Go")||word1.equals("go")&& word2.equals("to")&& this.isARoom(word3)){
+                    this.location=word3;
+                    System.out.println("Changed current location");
+                }
+            } catch (Exception e){
+                //I don't care if it doesn't work 
             }
+            
+            
 
         }
     }
