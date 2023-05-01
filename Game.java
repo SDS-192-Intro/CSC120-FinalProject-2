@@ -39,15 +39,11 @@ public class Game {
         //garden
         Garden garden=new Garden("garden","A lovely enclosed garden space with lots of flowers and a light breeze");
         this.garden=garden;
-        Item pond=new Item("pond","a stone pond in the center filled with water and fish",false, false, false,false, false, false, true);
-        Item pondWater=new Item("water in pond","cold, refreshing pond water",false, true, false, false, false, true, false);
+        Item pond=new Item("pond","a stone pond in the center filled with water and fish",false, false, true, false, false, false, true);
         Item fish=new Item("fish","appetizing koi fish swimming lazily", true, false, false, false, false, true, false);
-        pond.addChild(pondWater);
         pond.addChild(fish);
-        pondWater.addParent(pond);
         fish.addParent(pond);
         this.garden.addItem(pond);
-        this.garden.addItem(pondWater);
         this.garden.addItem(fish);
 
 
