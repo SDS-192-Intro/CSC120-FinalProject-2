@@ -27,7 +27,7 @@ public class Game {
         //Construct rooms
 
         //kitchen 
-        Kitchen kitchen=new Kitchen("kitchen", "A black-and-white tiled clean kitchen");
+        Kitchen kitchen=new Kitchen("kitchen", "A black-and-white tiled clean kitchen. ");
         this.kitchen=kitchen;
         Item table=new Item("table","A sturdy wooden table", false,false,true,false,true, false,true);
         Item milk=new Item("milk","A glass of milk",false,true,false,false,false,true,false);
@@ -37,7 +37,7 @@ public class Game {
         this.kitchen.addItem(milk);
 
         //garden
-        Garden garden=new Garden("garden","A lovely enclosed garden space with lots of flowers and a light breeze");
+        Garden garden=new Garden("garden","A lovely enclosed garden space with lots of flowers and a light breeze. ");
         this.garden=garden;
         Item pond=new Item("pond","a stone pond in the center filled with water",false, false, false, false, false, false, true);
         Item fish=new Item("fish","appetizing koi fish swimming lazily", true, false, false, false, false, true, false);
@@ -48,7 +48,7 @@ public class Game {
 
 
         //bedroom
-        Bedroom bedroom= new Bedroom("bedroom", "A spacious yet cozy bedroom ");
+        Bedroom bedroom= new Bedroom("bedroom", "A spacious yet cozy bedroom. ");
         this.bedroom=bedroom;
         Item bed=new Item("bed","A large bed with a blanket on top of it.",false,false,true,false,true,false,true);
         Item blanket=new Item("blanket","A cozy handmade afghan blanket",false,false, false,true,false, true,false);
@@ -61,20 +61,20 @@ public class Game {
         this.bedroom.addItem(dresser);
 
         //parlor room 
-        Parlor parlor=new Parlor("parlor room", "a homey parlor room");
+        Parlor parlor=new Parlor("parlor room", "a homey parlor room. ");
         this.parlor=parlor;
         Item windowSeat=new Item("window seat","a cozy yet bare window seat drenched in sunlight",false,false,true, false,true,false,false);
         this.windowSeat=windowSeat;
         this.parlor.addItem(windowSeat);
 
         //bathroom
-        Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom");
+        Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom. ");
         this.bathroom=bathroom;
         Item bathtub=new Item("bathtub","a large clawfoot bathtub",false,false,true,false,false,false,false);
         Item toilet=new Item("toilet","a toilet with water inside",false,false,true,false,true,false,true);
-        Item toiletWater=new Item("toilet water","water in the toilet",false, true,false,false,false,true,false);
-        toilet.addChild(toiletWater);
-        toiletWater.addParent(toilet);
+        Item water=new Item("water", "cool, clean refreshing water in the toilet",false,true,false,false,false,true,false);
+        toilet.addChild(water);
+        water.addParent(toilet);
         this.bathroom.addItem(bathtub);
         this.bathroom.addItem(toilet);
         this.bathroom.addItem(toiletWater);
