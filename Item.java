@@ -71,6 +71,11 @@ public class Item {
         }
     }
 
+    public Item getParent(){
+        //add error testing 
+        return this.parent;
+    }
+
     public void addChild(Item i){
         this.child=i;
     }
