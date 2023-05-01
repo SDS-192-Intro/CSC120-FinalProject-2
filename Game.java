@@ -77,7 +77,7 @@ public class Game {
         water.addParent(toilet);
         this.bathroom.addItem(bathtub);
         this.bathroom.addItem(toilet);
-        this.bathroom.addItem(toiletWater);
+        this.bathroom.addItem(water);
 
         //Build graph 
         ImmutableGraph<Room> house = GraphBuilder.undirected()
