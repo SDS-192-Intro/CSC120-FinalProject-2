@@ -167,6 +167,10 @@ public class Game {
         }
     }
 
+    public void changeClimbedOn(Item i){
+        this.climbedOn=i;
+    }
+
 
     public void play(){
 
