@@ -174,6 +174,10 @@ public class Game {
     public void changeHaveDrunk(Boolean b){
         this.haveDrunk=b;
     }
+
+    public void changeHolding(Item i){
+        this.holding=i;
+    }
         
 
 
