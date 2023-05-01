@@ -69,6 +69,14 @@ public class Item {
         }
     }
 
+    public Boolean isEdible(){
+        if(this.isEdible){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public void addParent(Item i){
         this.parent=i;
