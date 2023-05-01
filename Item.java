@@ -57,6 +57,14 @@ public class Item {
         return this.name;
     }
 
+    public Boolean isClimbable(){
+        if(this.isClimbable){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public void addParent(Item i){
         this.parent=i;
