@@ -57,6 +57,10 @@ public class Item {
         return this.name;
     }
 
+    public String getDescription(){
+        return this.description;
+    }
+
     public Boolean isClimbable(){
         if(this.isClimbable){
             return true;
