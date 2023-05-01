@@ -76,26 +76,39 @@ public class Room {
         try{
             String word3=wordList.get(2);
             Item item=this.returnItem(word3);
-            if(word1.equals("Go")||word1.equals("go")&& word2.equals("to")&&this.isInRoom(word3)){
-    
-                //if the item has a parent, don't let them go right to the item 
-                if (item.hasParent()){
-                    Item parent=item.getParent();
+            Boolean isGo=false;
+            if (word1.equals("Go")||word1.equals("go")){
+                isGo=true;
+            }
+            if(isGo&& word2.equals("to")){
+                //if the item is not an item --fill out 
+                
+                //if the item is not in the room 
+                if(!this.isInRoom(word3)){
+                    System.out.println("This is not an item or this item is not in this room. "+this.lookAround());
+                }
+                //if the item IS in the room 
+                else{
+                    //if the item has a parent, don't let them go right to the item 
+                    if (item.hasParent()){
+                        Item parent=item.getParent();
 
-                    //if we are already addressing the parent 
-                    if(this.addressing==parent){
-                        //then we are allowed to address the item  
-                        this.addressing=item;
+                        //if we are already addressing the parent 
+                        if(this.addressing==parent){
+                            //then we are allowed to address the item  
+                            this.addressing=item;
+                            System.out.println("You are at the "+item.getName());
+                        }
+                        else{
+                            System.out.println("You cannot get to "+item.getName()+" without first going to "+parent.getName()+". Try calling 'Go to' "+parent.getName());
+                        }
                     }
                     else{
-                        System.out.println("You cannot get to "+item.getName()+" without first going to "+parent.getName()+". Try calling 'Go to' "+parent.getName());
+                        this.addressing=item;
+                        System.out.println("You are at the "+item.getName());
                     }
                 }
-                else{
-                    this.addressing=item;
-                }
-                }
-        
+            }
                 
             } catch (Exception e){
             //I don't care 
