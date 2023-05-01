@@ -13,7 +13,7 @@ public class Game {
     Boolean haveDrunk;
     Boolean haveEaten;
     Scanner in;
-    ImmutableGraph map;
+    ImmutableGraph<Room> map;
     Kitchen kitchen;
     Garden garden;
     Bedroom bedroom;
@@ -167,6 +167,7 @@ public class Game {
         }
     }
 
+
     public void play(){
 
         System.out.println("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
@@ -219,22 +220,35 @@ public class Game {
                 String word1=wordList.get(0);
                 String word2=wordList.get(1);
                 String word3=wordList.get(2);
-                if (word1.equals("Go")||word1.equals("go")&& word2.equals("to")&& this.isARoom(word3)){
+                boolean isGo=false;
+                if (word1.equals("Go")||word1.equals("go")){
+                    isGo=true;
+                }
+                if (isGo&& word2.equals("to")&& this.isARoom(word3)){
                    //make array list with all the neighbors for a given room
+        
                    ArrayList<Room> neighbors=this.getNeighbors(locationAsRoom);
 
                     if(neighbors.contains(this.turnNameToRoom(word3))){
                         this.location=word3;
-                        System.out.println("Changed current location");
+                        locationAsRoom=this.turnNameToRoom(this.location);
+
+                        System.out.println("\nRight now, you are in the "+this.location+". "+locationAsRoom.lookAround());
+                        System.out.println("There are doors connecting to: ");
+                        this.printNeighbors(this.turnNameToRoom(this.location));
+
+                        continue;
                     }
-                    else{
+                    if(this.isARoom(word3)){
                         System.out.println("There is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
                         this.printNeighbors(locationAsRoom);
+                        continue;
                    }
                }
             } catch (Exception e){
                 
             }
+
 
             if (this.location.equals("kitchen")){
                 this.kitchen.conversation(wordList);
