@@ -7,13 +7,13 @@ public class Item {
     boolean isClimbable;
     boolean isTakeable;
     boolean isJumpOffable;
-    boolean onItem;
+    boolean hasParent;
     Item parent;
-    boolean hasItem;
+    boolean hasChild;
     Item child; 
 
     //constructor
-    public Item(String name, String description, boolean isEdible, boolean isDrinkable, boolean isClimbable, boolean isTakeable, boolean isJumpOffable, boolean onItem, boolean hasItem){
+    public Item(String name, String description, boolean isEdible, boolean isDrinkable, boolean isClimbable, boolean isTakeable, boolean isJumpOffable, boolean hasParent, boolean hasChild){
         this.name=name;
         this.description=description;
         this.isEdible=isEdible;
@@ -21,12 +21,12 @@ public class Item {
         this.isClimbable=isClimbable;
         this.isTakeable=isTakeable;
         this.isJumpOffable=isJumpOffable;
-        this.onItem=onItem;
-        if (this.onItem){
+        this.hasParent=hasParent;
+        if (this.hasParent){
             this.parent=null;
         }
-        this.hasItem=hasItem;
-        if (this.hasItem){
+        this.hasChild=hasChild;
+        if (this.hasChild){
             this.child=null;
         }
 
@@ -34,8 +34,7 @@ public class Item {
 
     //show options method 
     public void showOptions(){
-        String toPrint= "Options for: "+this.name+"\n";
-        toPrint+=description+"\n";
+        String toPrint= "\nOptions for: "+this.name+"\n";
         if (this.isEdible){
             toPrint+="You can eat the "+this.name+"\n";
         }
@@ -64,7 +63,7 @@ public class Item {
     }
 
     public boolean hasParent(){
-        if (this.hasParent()){
+        if (this.hasParent){
             return true;
         }else{
             return false;
