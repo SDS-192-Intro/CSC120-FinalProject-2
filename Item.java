@@ -84,6 +84,14 @@ public class Item {
             return false;
         }
     }
+    
+    public Boolean isJumpOffAble(){
+        if(this.isJumpOffable){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public void addParent(Item i){
         this.parent=i;
