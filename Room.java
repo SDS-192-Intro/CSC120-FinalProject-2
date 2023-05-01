@@ -75,10 +75,29 @@ public class Room {
         //check if they say 'go to' that the item is in room 
         try{
             String word3=wordList.get(2);
+            Item item=this.returnItem(word3);
             if(word1.equals("Go")||word1.equals("go")&& word2.equals("to")&&this.isInRoom(word3)){
-                this.addressing=this.returnItem(word3);
-            }
-        } catch (Exception e){
+    
+                //if the item has a parent, don't let them go right to the item 
+                if (item.hasParent()){
+                    Item parent=item.getParent();
+
+                    //if we are already addressing the parent 
+                    if(this.addressing==parent){
+                        //then we are allowed to address the item  
+                        this.addressing=item;
+                    }
+                    else{
+                        System.out.println("You cannot get to "+item.getName()+" without first going to "+parent.getName()+". Try calling 'Go to' "+parent.getName());
+                    }
+                }
+                else{
+                    this.addressing=item;
+                }
+                }
+        
+                
+            } catch (Exception e){
             //I don't care 
         }
     }
