@@ -86,4 +86,12 @@ public class Item {
     public void addChild(Item i){
         this.child=i;
     }
+
+    public boolean hasChild(){
+        if(this.hasChild){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
