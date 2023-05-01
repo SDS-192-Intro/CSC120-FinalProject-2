@@ -167,6 +167,10 @@ public class Game {
         this.climbedOn=i;
     }
 
+    public void changeHaveEaten(Boolean b){
+        this.haveEaten=b;
+    }
+
 
     public void play(){
 
