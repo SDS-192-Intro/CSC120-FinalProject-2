@@ -39,7 +39,7 @@ public class Game {
         //garden
         Garden garden=new Garden("garden","A lovely enclosed garden space with lots of flowers and a light breeze");
         this.garden=garden;
-        Item pond=new Item("pond","a stone pond in the center filled with water and fish",false, false, true, false, false, false, true);
+        Item pond=new Item("pond","a stone pond in the center filled with water",false, false, false, false, false, false, true);
         Item fish=new Item("fish","appetizing koi fish swimming lazily", true, false, false, false, false, true, false);
         pond.addChild(fish);
         fish.addParent(pond);
@@ -171,6 +171,11 @@ public class Game {
         this.haveEaten=b;
     }
 
+    public void changeHaveDrunk(Boolean b){
+        this.haveDrunk=b;
+    }
+        
+
 
     public void play(){
 
@@ -237,7 +242,7 @@ public class Game {
                         this.location=word3;
                         locationAsRoom=this.turnNameToRoom(this.location);
 
-                        System.out.println("\nRight now, you are in the "+this.location+". "+locationAsRoom.lookAround());
+                        System.out.println("\nRight now, you are in the "+this.location+". "+locationAsRoom.getDescription()+locationAsRoom.lookAround());
                         System.out.println("There are doors connecting to: ");
                         this.printNeighbors(this.turnNameToRoom(this.location));
 
