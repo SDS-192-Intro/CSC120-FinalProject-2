@@ -57,8 +57,18 @@ public class Item {
     public String getName(){
         return this.name;
     }
+
+
     public void addParent(Item i){
         this.parent=i;
+    }
+
+    public boolean hasParent(){
+        if (this.hasParent()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void addChild(Item i){
