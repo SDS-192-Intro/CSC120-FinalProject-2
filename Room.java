@@ -5,10 +5,12 @@ public class Room {
     ArrayList<Item> items = new ArrayList<Item>();
     String name;
     String description;
+    Item addressing;
 
     public Room (String name, String description){
         this.name=name;
         this.description=description;
+        this.addressing=null;
     }
 
     public String getName(){
@@ -52,6 +54,15 @@ public class Room {
         }
     }
 
+    public Item returnItem(String item){
+        for(Item i:items){
+            if (item.equals(i.getName())){
+                return i;
+            }
+        }
+        return null;
+    }
+
     public void conversation(ArrayList<String> wordList){
         String word1=wordList.get(0);
         String word2=wordList.get(1);
@@ -63,7 +74,10 @@ public class Room {
 
         //check if they say 'go to' that the item is in room 
         try{
-            if(word1.equals("Go")||word1.equals("go")&& word2.equals("to"))
+            String word3=wordList.get(2);
+            if(word1.equals("Go")||word1.equals("go")&& word2.equals("to")&&this.isInRoom(word3)){
+                this.addressing=this.returnItem(word3);
+            }
         } catch (Exception e){
             //I don't care 
         }
