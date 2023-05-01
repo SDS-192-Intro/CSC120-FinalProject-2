@@ -94,4 +94,8 @@ public class Item {
             return false;
         }
     }
+
+    public Item getChild(){
+        return this.child;
+    }
 }
