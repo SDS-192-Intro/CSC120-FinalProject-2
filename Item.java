@@ -77,6 +77,13 @@ public class Item {
         }
     }
 
+    public Boolean isDrinkable(){
+        if(this.isDrinkable){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public void addParent(Item i){
         this.parent=i;
