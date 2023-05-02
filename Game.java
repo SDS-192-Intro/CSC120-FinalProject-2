@@ -382,10 +382,10 @@ public class Game {
                    }
                }
             } catch (Exception e){
-                
             }
 
 
+            //If the current location is a room, send the response to that class 
             if (this.location.equals("kitchen")){
                 this.kitchen.conversation(wordList);
             }
@@ -401,11 +401,7 @@ public class Game {
             if(this.location.equals("parlor")){
                 this.parlor.conversation(wordList);
             }
-
-        
-            //end of turn-- change Ready to true
-            // this.ready=true;
-
+            
             //reset current time & boolean
             this.current=getTimeSeconds();
             gameGoing=(this.current-start<300);
