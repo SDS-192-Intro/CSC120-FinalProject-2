@@ -248,25 +248,53 @@ public class Room {
             Boolean word1isJump=word1.equals("Jump")||word1.equals("jump");
             if(word1isJump && word2.equals("off") && word3.equals("of") && word4.equals("the")){
                 Item item=this.returnItem(word5);
-                //If you have NOT climbed on to the item 
-                if(!this.game.getClimbedOn().equals(item)){
-                    System.out.println("You need to have climbed onto the "+word5+" in order to jump off of it. Try 'Climb the "+word5+"'.");
+                 //If you have NOT climbed on to the item 
+                if(Objects.isNull(this.game.getClimbedOn())){
+                    System.out.println("\nYou need to have climbed onto the "+word5+" in order to jump off of it. Try 'Climb the "+word5+"'.");
                 }
-                //If the item is jump-off-able
-                if(!item.isJumpOffable){
-                    System.out.println("here");
-                    System.out.println("You cannot climb out of the slippery porcelain bath. Unfortuntely, this means that you will not be able to find the perfect nap spot before sunset.");
-                    System.out.println("Ah well, you can just rest your eyes....");
-                    this.game.changeStuckInBath(true);
+
+                //If you have climbed onto the item
+                if(this.game.getClimbedOn().equals(item)){
+                    //If it is jump-off-able
+                    if(item.isJumpOffable){
+                        //If you are addressing it 
+                        if(this.addressing.equals(item)){
+                            //Then you may jump off 
+                            //Change climbedOn attribute in the game 
+                            this.game.changeClimbedOn(null);
+                            System.out.println("\nYou have jumped off of the "+word5+".");
+                            System.out.println("You are now standing next to the "+word5+" in the "+this.getName()+".");
+                            this.lookAround();
+                            //throw runtime exception to avoid being caught in the final conditional
+                            throw new RuntimeException();
+                        }
+                        //If you are NOT addressing the item
+                        else{
+                            System.out.println("\nIn order to jump off, you must first be *at* the "+word5+". Try 'Go to the "+word5+"', and then 'Climb the "+word5+"'.");
+                            //throw runtime exception to avoid being caught in the final conditional
+                            throw new RuntimeException();
+                        }
+                    }
+                    //If it is NOT jump-off-able (only the case for the bathtub)
+                    else{
+                        System.out.println("\nYou cannot jump out of the slippery porcelain bath. Unfortuntely, this means that you will not be able to find the perfect nap spot before sunset.");
+                        System.out.println("Ah well, you can just rest your eyes....");
+                        this.game.changeStuckInBath(true);
+                        //throw runtime exception to avoid being caught in the final conditional
+                        throw new RuntimeException();
+                    }
                 }
             }
-             
-
-
         }
         catch(Exception e) {}
 
         //"Jump off of *item*"
+        try{
+            //Get third and fourth words
+            //If they said "Jump off of *item*"
+            //If you have NOT climbed onto item
+            //If the item is jump-off-able
+        } catch (Exception e){}
 
         //"Eat the *item*"
         try{

@@ -202,6 +202,10 @@ public class Game {
         }
     }
 
+    public String getLocation(){
+        return this.location;
+    }
+
     public Item getClimbedOn(){
         return this.climbedOn;
     }
