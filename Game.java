@@ -30,6 +30,7 @@ public class Game {
     Timer timer;
     Integer current;
     Boolean readyToNap;
+    Boolean stuckInBath;
 
 
     public Game(){
@@ -115,6 +116,9 @@ public class Game {
 
         //start ready to nap boolean
         this.readyToNap=false;
+
+        //start stuck in bath boolean
+        this.stuckInBath=false;
 
     }
 
@@ -215,6 +219,10 @@ public class Game {
 
     public void changeHolding(Item i){
         this.holding=i;
+    }
+
+    public void changeStuckInBath(Boolean b){
+        this.stuckInBath=b;
     }
         
     public Integer getTimeSeconds(){
@@ -401,7 +409,7 @@ public class Game {
             if(this.location.equals("parlor")){
                 this.parlor.conversation(wordList);
             }
-            
+
             //reset current time & boolean
             this.current=getTimeSeconds();
             gameGoing=(this.current-start<300);
