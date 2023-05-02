@@ -31,6 +31,7 @@ public class Game {
     Integer current;
     Boolean readyToNap;
     Boolean stuckInBath;
+    Boolean success;
 
 
     public Game(){
@@ -119,6 +120,9 @@ public class Game {
 
         //start stuck in bath boolean
         this.stuckInBath=false;
+        
+        //start the success boolean
+        this.success=false;
 
     }
 
@@ -228,6 +232,10 @@ public class Game {
     public void changeStuckInBath(Boolean b){
         this.stuckInBath=b;
     }
+
+    public void changeSuccess(Boolean b){
+        this.success=b;
+    }
         
     public Integer getTimeSeconds(){
         //getting current time
@@ -263,7 +271,7 @@ public class Game {
         System.out.println("* A parlor, "+this.parlor.getDescription());
         System.out.println("* A bedroom, "+this.bedroom.getDescription());
         System.out.println("* A bathroom, "+this.bathroom.getDescription());
-        System.out.println("\nYou can 'Go to' a room, 'Go to' something within a room, 'Look around' to see what's in a room, and 'Show options' if you have gone to an object");
+        System.out.println("Get started by saying 'Go to the ____' (a room or object of your choosing)");
         System.out.println("\nRight now, you are in the kitchen. "+this.kitchen.lookAround());
         System.out.println("There are doors connecting to: ");
         this.printNeighbors(this.turnNameToRoom(this.location));
@@ -340,6 +348,22 @@ public class Game {
             ArrayList<String> wordList = new ArrayList<String>();
             for(String word : response.split(" ")) {
                 wordList.add(word);
+            }
+            
+            //Check if the response is "Help"
+            if(wordList.get(0).equals("Help")||wordList.get(0).equals("help")){
+                System.out.println("\nRemember, in order to nap, you must: ");
+                System.out.println("* have eaten");
+                System.out.println("* have drunk something");
+                System.out.println("* have a blanket to sleep on");
+                System.out.println("* be in direct sunlight\n");
+                System.out.println("\nTry these commands:");
+                System.out.println("* 'Go to the _____'");
+                System.out.println("* 'Climb the _____'");
+                System.out.println("* 'Jump off of the _____'");
+                System.out.println("* 'Eat the _____'");
+                System.out.println("* 'Drink the _____'");
+                continue;
             }
 
             //Check that the response is more than one word
@@ -419,6 +443,18 @@ public class Game {
             gameGoing=(this.current-start<300);
             //call canNap to update situation
             this.readyToNap=this.canNap();
+            
+            //If the program has NOT parsed the response (even if it didn't work), it sends out a general error message
+            if(this.success==false){
+                System.out.println("\nThat is not a valid command. Try these: ");
+                System.out.println("* 'Go to the _____'");
+                System.out.println("* 'Climb the _____'");
+                System.out.println("* 'Jump off of the _____'");
+                System.out.println("* 'Eat the _____'");
+                System.out.println("* 'Drink the _____'");
+                System.out.println("You can also say 'Look around' or 'Help'");
+
+            }
         }
         
         if(this.canNap()){
