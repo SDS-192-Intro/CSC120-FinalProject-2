@@ -6,6 +6,9 @@ import java.util.Set;
 import com.google.common.graph.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
+
 
 public class Game {
 
@@ -24,13 +27,14 @@ public class Game {
     Item blanket;
     Item windowSeat;
     Timer timer;
+    Integer current;
 
 
     public Game(){
         //Construct rooms
 
         //kitchen 
-        Kitchen kitchen=new Kitchen("kitchen", "a black-and-white tiled clean kitchen. ");
+        Kitchen kitchen=new Kitchen("kitchen", "a black-and-white tiled clean kitchen. ",this);
         this.kitchen=kitchen;
         Item table=new Item("table","A sturdy wooden table", false,false,true,false,true, false,true);
         Item milk=new Item("milk","A glass of milk",false,true,false,false,false,true,false);
@@ -40,7 +44,7 @@ public class Game {
         this.kitchen.addItem(milk);
 
         //garden
-        Garden garden=new Garden("garden","a lovely enclosed garden space with lots of flowers and a light breeze. ");
+        Garden garden=new Garden("garden","a lovely enclosed garden space with lots of flowers and a light breeze. ",this);
         this.garden=garden;
         Item pond=new Item("pond","a stone pond in the center filled with water",false, false, false, false, false, false, true);
         Item fish=new Item("fish","appetizing koi fish swimming lazily", true, false, false, false, false, true, false);
@@ -51,7 +55,7 @@ public class Game {
 
 
         //bedroom
-        Bedroom bedroom= new Bedroom("bedroom", "a spacious yet cozy bedroom. ");
+        Bedroom bedroom= new Bedroom("bedroom", "a spacious yet cozy bedroom. ",this);
         this.bedroom=bedroom;
         Item bed=new Item("bed","A large bed with a blanket on top of it.",false,false,true,false,true,false,true);
         Item blanket=new Item("blanket","A cozy handmade afghan blanket",false,false, false,true,false, true,false);
@@ -64,14 +68,14 @@ public class Game {
         this.bedroom.addItem(dresser);
 
         //parlor
-        Parlor parlor=new Parlor("Parlor", "a homey parlor room. ");
+        Parlor parlor=new Parlor("Parlor", "a homey parlor room. ",this);
         this.parlor=parlor;
         Item windowSeat=new Item("window seat","a cozy yet bare window seat drenched in sunlight",false,false,true, false,true,false,false);
         this.windowSeat=windowSeat;
         this.parlor.addItem(windowSeat);
 
         //bathroom
-        Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom. ");
+        Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom. ",this);
         this.bathroom=bathroom;
         Item bathtub=new Item("bathtub","a large clawfoot bathtub",false,false,true,false,false,false,false);
         Item toilet=new Item("toilet","a toilet with water inside",false,false,true,false,true,false,true);
@@ -101,6 +105,9 @@ public class Game {
         this.climbedOn=null;
         this.haveDrunk=false;
         this.haveEaten=false;
+
+        //start integer for timing out
+        this.current=0;
 
     }
 
@@ -182,7 +189,19 @@ public class Game {
         this.holding=i;
     }
         
-
+    public Integer getTimeSeconds(){
+        //getting current time
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        //turn it into HH:mm:ss format
+        String nowDtf=dtf.format(now);
+        Integer hours=60*60*Integer.parseInt(nowDtf.split(":")[0]);
+        Integer minutes=60*Integer.parseInt(nowDtf.split(":")[1]);
+        Integer seconds=Integer.parseInt(nowDtf.split(":")[2]);
+        //find total seconds
+        Integer time=hours+minutes+seconds;
+        return time;
+    }
 
     public void play(){
 
@@ -195,41 +214,6 @@ public class Game {
         //TIMER SECTION 
         System.out.println("Right now, it is 12 pm. The sun is going to set at 7 pm. Cat time is different than human time (nine lives and all), so you will get warnings throughout the game of the time.");
         System.out.println("If you fail to nap before sunset, you will lose the game :(");
-        
-        Timer timer=new Timer();
-        long first=60000;
-        long second=12000;
-        long third=18000;
-        //first warning
-        timer.schedule(new TimerTask(){
-            public void run(){
-                System.out.println("It's already 2:24 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-                System.out.println("* have eaten");
-                System.out.println("* have drunk something");
-                System.out.println("* have a blanket to sleep on");
-                System.out.println("* be in direct sunlight \nBefore you can nap.");
-            }
-        },first);
-        //second warning
-        timer.schedule(new TimerTask(){
-            public void run(){
-                System.out.println("It's already 3:48 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-                System.out.println("* have eaten");
-                System.out.println("* have drunk something");
-                System.out.println("* have a blanket to sleep on");
-                System.out.println("* be in direct sunlight \nBefore you can nap.");
-            }
-        },second);
-        //third warning
-        timer.schedule(new TimerTask(){
-            public void run(){
-                System.out.println("It's already 5:12 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-                System.out.println("* have eaten");
-                System.out.println("* have drunk something");
-                System.out.println("* have a blanket to sleep on");
-                System.out.println("* be in direct sunlight \nBefore you can nap.");
-            }
-        },third);
         
 
         System.out.println("In this house, there is: ");
@@ -244,11 +228,64 @@ public class Game {
         this.printNeighbors(this.turnNameToRoom(this.location));
         System.out.println();
 
-        //put timer here
+        
 
         in=new Scanner(System.in);
 
-        while(!this.canNap()){
+        //get start time of game
+        Integer start=getTimeSeconds();
+        System.out.println(start);
+        //initialize 
+        this.current=getTimeSeconds(); 
+        System.out.println(this.current);
+        //create Boolean for end of game 
+        Boolean gameGoing=(start-this.current<300);
+
+        while(gameGoing && !this.canNap()){
+
+            // TIMER SECTION 
+            // Timer timer=new Timer();
+            // long first=6000;
+            // long second=120000;
+            // long third=180000;
+            // //first warning
+            // timer.schedule(new TimerTask(){
+            //     public void run(){
+            //         if(this.ready){
+            //             System.out.println("It's already 2:24 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
+            //             System.out.println("* have eaten");
+            //             System.out.println("* have drunk something");
+            //             System.out.println("* have a blanket to sleep on");
+            //             System.out.println("* be in direct sunlight \nBefore you can nap.");
+            //         }
+            //     }
+            // },first);
+            // //second warning
+            // timer.schedule(new TimerTask(){
+            //     public void run(){
+            //         if(this.ready){
+            //             System.out.println("It's already 3:48 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
+            //             System.out.println("* have eaten");
+            //             System.out.println("* have drunk something");
+            //             System.out.println("* have a blanket to sleep on");
+            //             System.out.println("* be in direct sunlight \nBefore you can nap.");
+            //         }  
+            //     }
+            // },second);
+            // //third warning
+            // timer.schedule(new TimerTask(){
+            //     public void run(Boolean ready){
+            //         if(ready){
+            //             System.out.println("It's already 5:12 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
+            //             System.out.println("* have eaten");
+            //             System.out.println("* have drunk something");
+            //             System.out.println("* have a blanket to sleep on");
+            //             System.out.println("* be in direct sunlight \nBefore you can nap.");
+            //         }
+            //     }
+            // },third);
+        
+
             System.out.println();
 
             Room locationAsRoom=this.turnNameToRoom(this.location);
@@ -293,11 +330,18 @@ public class Game {
                         System.out.println("There are doors connecting to: ");
                         this.printNeighbors(this.turnNameToRoom(this.location));
 
+                        //reset current time 
+                        this.current=getTimeSeconds(); 
+                        gameGoing=(this.current-start<300);
                         continue;
                     }
                     if(this.isARoom(word3)){
                         System.out.println("There is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
                         this.printNeighbors(locationAsRoom);
+
+                        //reset current time 
+                        this.current=getTimeSeconds(); 
+                        gameGoing=(this.current-start<300);
                         continue;
                    }
                }
@@ -322,10 +366,24 @@ public class Game {
                 this.parlor.conversation(wordList);
             }
 
-            
+        
+            //end of turn-- change Ready to true
+            // this.ready=true;
 
+            //reset current time & boolean
+            this.current=getTimeSeconds();
+            gameGoing=(this.current-start<300);
+
+        }
+        
+        if(this.canNap()){
+            System.out.println("SNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
+        }
+        if(!gameGoing){
+            System.out.println("The sun has set. The room is filled with pink light. You didn't nap, but nightfall is coming and you'll have a wonderful deep sleep.");
         }
     }
     
+
 
 }
