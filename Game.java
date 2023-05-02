@@ -40,8 +40,8 @@ public class Game {
         //kitchen 
         Kitchen kitchen=new Kitchen("kitchen", "a black-and-white tiled clean kitchen. ",this);
         this.kitchen=kitchen;
-        Item table=new Item("table","A sturdy wooden table", false,false,true,false,true, false,true);
-        Item milk=new Item("milk","A glass of milk",false,true,false,false,false,true,false);
+        Item table=new Item("table","A sturdy wooden table [table]", false,false,true,false,true, false,true);
+        Item milk=new Item("milk","A glass of milk [milk]",false,true,false,false,false,true,false);
         table.addChild(milk);
         milk.addParent(table);
         this.kitchen.addItem(table);
@@ -50,8 +50,8 @@ public class Game {
         //garden
         Garden garden=new Garden("garden","a lovely enclosed garden space with lots of flowers and a light breeze. ",this);
         this.garden=garden;
-        Item pond=new Item("pond","a stone pond in the center filled with water",false, false, false, false, false, false, true);
-        Item fish=new Item("fish","appetizing koi fish swimming lazily", true, false, false, false, false, true, false);
+        Item pond=new Item("pond","A stone pond in the center filled with water [pond]",false, false, false, false, false, false, true);
+        Item fish=new Item("fish","Appetizing koi fish swimming lazily [fish]", true, false, false, false, false, true, false);
         pond.addChild(fish);
         fish.addParent(pond);
         this.garden.addItem(pond);
@@ -61,12 +61,12 @@ public class Game {
         //bedroom
         Bedroom bedroom= new Bedroom("bedroom", "a spacious yet cozy bedroom. ",this);
         this.bedroom=bedroom;
-        Item bed=new Item("bed","A large bed with a blanket on top of it.",false,false,true,false,true,false,true);
-        Item blanket=new Item("blanket","A cozy handmade afghan blanket",false,false, false,true,false, true,false);
+        Item bed=new Item("bed","A large bed with a blanket on top of it [bed]",false,false,true,false,true,false,true);
+        Item blanket=new Item("blanket","A cozy handmade afghan blanket [blanket]",false,false, false,true,false, true,false);
         this.blanket=blanket;
         bed.addChild(blanket);
         this.blanket.addParent(bed);
-        Item dresser=new Item("dresser","A handsome chestnut dresser filled with woolen sweaters",false,false,true,false,true,false,false);
+        Item dresser=new Item("dresser","A handsome chestnut dresser filled with woolen sweaters [dresser]",false,false,true,false,true,false,false);
         this.bedroom.addItem(bed);
         this.bedroom.addItem(blanket);
         this.bedroom.addItem(dresser);
@@ -74,8 +74,8 @@ public class Game {
         //parlor
         Parlor parlor=new Parlor("Parlor", "a homey parlor room. ",this);
         this.parlor=parlor;
-        Item windowSeat=new Item("window seat","a cozy yet bare window seat drenched in sunlight",false,false,true, false,true,false,false);
-        Item couch=new Item("couch","a plump green corduroy couch",false,false,true,false,true,false,false);
+        Item windowSeat=new Item("window seat","A cozy yet bare window seat drenched in sunlight [window seat]",false,false,true, false,true,false,false);
+        Item couch=new Item("couch","a plump green corduroy couch [couch]",false,false,true,false,true,false,false);
         this.windowSeat=windowSeat;
         this.parlor.addItem(windowSeat);
         this.parlor.addItem(couch);
@@ -83,9 +83,9 @@ public class Game {
         //bathroom
         Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom. ",this);
         this.bathroom=bathroom;
-        Item bathtub=new Item("bathtub","a large clawfoot bathtub",false,false,true,false,false,false,false);
-        Item toilet=new Item("toilet","a toilet with water inside",false,false,true,false,true,false,true);
-        Item water=new Item("water", "cool, clean refreshing water in the toilet",false,true,false,false,false,true,false);
+        Item bathtub=new Item("bathtub","a large clawfoot bathtub [bathtub]",false,false,true,false,false,false,false);
+        Item toilet=new Item("toilet","a toilet with water inside [toilet]",false,false,true,false,true,false,true);
+        Item water=new Item("water", "cool, clean refreshing water in the toilet [water]",false,true,false,false,false,true,false);
         toilet.addChild(water);
         water.addParent(toilet);
         this.bathroom.addItem(bathtub);
@@ -150,7 +150,31 @@ public class Game {
         else{
             return false;
         }
-
+    }
+    
+    public void printNapStatus(){  
+        if(this.haveEaten){
+            System.out.println("* You have eaten.");
+        } else{
+            System.out.println("* You have NOT YET eaten.");
+        }
+        if(this.haveDrunk){
+            System.out.println("* You have drunk something.");
+        }else{
+            System.out.println("* You have NOT YET drunk something.");
+        }
+        if(Objects.nonNull(this.holding)){
+            if(this.holding.equals(this.blanket)){
+                System.out.println("* You are holding a blanket to sleep on.");
+            } 
+        }else{
+            System.out.println("* You are NOT YET holding a blanket to sleep on.");
+        }
+        if(this.location.equals("parlor")&&this.climbedOn.equals(this.windowSeat)){
+            System.out.println("* You are in a sunny spot to sleep.");
+        }else{
+            System.out.println("* You are NOT YET in a sunny spot to sleep.");
+        }
     }
     
     //method to get neighbors
@@ -212,6 +236,10 @@ public class Game {
 
     public Item getClimbedOn(){
         return this.climbedOn;
+    }
+
+    public Boolean getHaveDrunk(){
+        return this.haveDrunk;
     }
     public void changeClimbedOn(Item i){
         this.climbedOn=i;
