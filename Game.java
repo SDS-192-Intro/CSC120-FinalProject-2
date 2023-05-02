@@ -276,7 +276,7 @@ public class Game {
         //create Boolean for end of game 
         Boolean gameGoing=(start-this.current<300);
 
-        while(gameGoing && !this.readyToNap){
+        while(gameGoing && !this.readyToNap && !this.stuckInBath){
 
             // TIMER SECTION 
             // Timer timer=new Timer();
@@ -413,15 +413,20 @@ public class Game {
             //reset current time & boolean
             this.current=getTimeSeconds();
             gameGoing=(this.current-start<300);
-            //call canNap() to update status 
+            //call canNap to update situation
             this.readyToNap=this.canNap();
         }
         
         if(this.canNap()){
             System.out.println("/nSNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
+            System.out.println("GAME OVER.");
         }
         if(!gameGoing){
             System.out.println("The sun has set. The room is filled with pink light. You didn't nap, but nightfall is coming and you'll have a wonderful deep sleep.");
+            System.out.println("GAME OVER.");
+        }
+        if(this.stuckInBath){
+            System.out.println("GAME OVER.");
         }
     }
     
