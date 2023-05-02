@@ -145,14 +145,12 @@ public class Room {
         
         //"Climb the *item*"
         try{
-
             //Get third word 
             String word3=wordList.get(2);
 
             //Check whether they said "Climb the *item*"
             Boolean firstWordIsClimb=word1.equals("climb")||word1.equals("Climb");
             if(firstWordIsClimb && word2.equals("the")){
-                System.out.println("here");
 
                 //Return the string from response as an item 
                 Item item=this.returnItem(word3);
@@ -161,9 +159,12 @@ public class Room {
                 if (this.addressing.equals(item)){
                     //Check that the item is climbable 
                     if(item.isClimbable()){
-                        //Check whether we have already climbed the item
-                        if(this.game.getClimbedOn().equals(item)){
-                            System.out.println("You have already climbed onto "+word3+".");
+                        //If this.climbedOn isn't void (to avoid throwing a runtime exception)
+                        if(Objects.nonNull(this.game.getClimbedOn())){
+                            //Check whether we have already climbed the item
+                            if(this.game.getClimbedOn().equals(item)){
+                                System.out.println("You have already climbed onto the "+word3+".");
+                            }
                         }
                         //Then you are allowed to climb the item 
                         else{
@@ -182,16 +183,101 @@ public class Room {
                         item.showOptions();
                     }
                 }
-                //If we are not addressing any item or if we are addressing another time
+                //If we are not addressing any item or if we are addressing another item
                 if(Objects.isNull(this.addressing)||!this.addressing.equals(item)){
                     System.out.println("You cannot climb this item if you are not at it. Try 'Go to "+word3+"'.");
                 }
             }
 
         }catch(Exception e){}
+        
+        //Climb *item*
+        try{
+            //Check whether there is only two words (Don't want "Climb the *item*" to also end up here)
+            if(wordList.size()==2){
+                //Check whether they said "Climb *item*"
+                if(word1.equals("Climb")||word1.equals("climb")){
+                    //Return the item
+                    Item item=this.returnItem(word2);
+                    //Check whether we are addressing the item
+                    if (this.addressing.equals(item)){
+                        //Check that the item is climbable
+                        if(item.isClimbable){
+                            ///If this.climbedOn isn't void (to avoid throwing a runtime exception)
+                            if(Objects.nonNull(this.game.getClimbedOn())){
+                                //Check whether we have already climbed the item
+                                if(this.game.getClimbedOn().equals(item)){
+                                    System.out.println("You have already climbed onto the "+word2+".");
+                                }
+                            }
+                            //Then you are allowed to climb the item 
+                            else{
+                                System.out.println("\nYou have climbed on "+word2+".");
+                                this.game.changeClimbedOn(item);
+                                //if the item has a child (ex. milk on table), then show options for child
+                                if(item.hasChild()){
+                                    System.out.println("The "+item.getChild().getName()+" is on top of the "+word2+".");
+                                    System.out.println("\nTo get to the "+item.getChild().getName()+" try 'Go to the "+item.getChild().getName()+"'.");
+                                }
+                        }
+                        }
+                        //If not climbable, say that it is not climbable & print options 
+                        else{
+                        System.out.println("The "+word2+" is not climbable.");
+                        item.showOptions();
+                        }   
+                    }
+                    //If we are not addressing any item or if we are addressing another item
+                     if(Objects.isNull(this.addressing)||!this.addressing.equals(item)){
+                    System.out.println("You cannot climb this item if you are not at it. Try 'Go to "+word2+"'.");
+                }
+                }
+
+            }
+        }catch (Exception e){}
+
+
+        //"Jump off of the *item*"
+        try{
+            //Get third, fourth, and fifth words 
+            String word3=wordList.get(2);
+            String word4=wordList.get(3);
+            String word5=wordList.get(4);
+
+            //If they said "Jump off of the *item*" 
+            Boolean word1isJump=word1.equals("Jump")||word1.equals("jump");
+            if(word1isJump && word2.equals("off") && word3.equals("of") && word4.equals("the")){
+                Item item=this.returnItem(word5);
+                //If you have NOT climbed on to the item 
+                if(!this.game.getClimbedOn().equals(item)){
+                    System.out.println("You need to have climbed onto the "+word5+" in order to jump off of it. Try 'Climb the "+word5+"'.");
+                }
+                //If the item is jump-off-able
+                if(!item.isJumpOffable){
+                    System.out.println("here");
+                    System.out.println("You cannot climb out of the slippery porcelain bath. Unfortuntely, this means that you will not be able to find the perfect nap spot before sunset.");
+                    System.out.println("Ah well, you can just rest your eyes....");
+                    this.game.changeStuckInBath(true);
+                }
+            }
+             
+
+
+        }
+        catch(Exception e) {}
+
+        //"Jump off of *item*"
 
         //"Eat the *item*"
+        try{
+
+        }
+        catch(Exception e) {}
         //"Drink the *item*"
+        try{
+            
+        }
+        catch(Exception e) {}
 
         // //TRY GO TO FUNCTIONS
         // try{
