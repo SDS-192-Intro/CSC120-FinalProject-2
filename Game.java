@@ -1,4 +1,5 @@
 
+import java.util.Objects;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashSet;
@@ -28,6 +29,7 @@ public class Game {
     Item windowSeat;
     Timer timer;
     Integer current;
+    Boolean readyToNap;
 
 
     public Game(){
@@ -109,17 +111,37 @@ public class Game {
         //start integer for timing out
         this.current=0;
 
+        //start ready to nap boolean
+        this.readyToNap=false;
+
     }
 
     //method to see if cat can nap
     public boolean canNap(){
-        if(this.location.equals(this.parlor.getName())&& this.haveDrunk && this.haveEaten && this.holding==this.blanket&&this.climbedOn==this.windowSeat){
-            return true;
+        System.out.println("parlor: "+ this.location.equals("parlor"));
+        System.out.println("drink: "+this.haveDrunk);
+        System.out.println("eat: "+this.haveEaten);
+        if(Objects.nonNull(this.holding)){
+            System.out.println("hold: "+this.holding.equals(this.blanket));
+        }
+        if(Objects.nonNull(this.climbedOn)){
+            System.out.println("climb: "+this.climbedOn.equals(this.windowSeat));
+        }
+
+        if(Objects.nonNull(this.holding)&&Objects.nonNull(this.climbedOn)){
+            if(this.location.equals("parlor")&& this.haveDrunk && this.haveEaten && this.holding.equals(this.blanket) && this.climbedOn.equals(this.windowSeat)){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
         }
+
     }
+    
     //method to get neighbors
     public ArrayList<Room> getNeighbors(Room current){
         Set<Room> setOfNeighbors= new HashSet<Room>();
@@ -243,7 +265,7 @@ public class Game {
         //create Boolean for end of game 
         Boolean gameGoing=(start-this.current<300);
 
-        while(gameGoing && !this.canNap()){
+        while(gameGoing && !this.readyToNap){
 
             // TIMER SECTION 
             // Timer timer=new Timer();
@@ -335,6 +357,7 @@ public class Game {
                         //reset current time 
                         this.current=getTimeSeconds(); 
                         gameGoing=(this.current-start<300);
+                        this.readyToNap=this.canNap();
                         continue;
                     }
                     if(this.isARoom(word3)){
@@ -344,6 +367,7 @@ public class Game {
                         //reset current time 
                         this.current=getTimeSeconds(); 
                         gameGoing=(this.current-start<300);
+                        this.readyToNap=this.canNap();
                         continue;
                    }
                }
@@ -375,11 +399,13 @@ public class Game {
             //reset current time & boolean
             this.current=getTimeSeconds();
             gameGoing=(this.current-start<300);
-
+            //call canNap()
+            this.readyToNap=this.canNap();
+            System.out.println(this.readyToNap);
         }
         
         if(this.canNap()){
-            System.out.println("SNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
+            System.out.println("/nSNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
         }
         if(!gameGoing){
             System.out.println("The sun has set. The room is filled with pink light. You didn't nap, but nightfall is coming and you'll have a wonderful deep sleep.");

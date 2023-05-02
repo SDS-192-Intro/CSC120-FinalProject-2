@@ -5,8 +5,8 @@ public class Bedroom extends Room{
     String name;
     String description;
 
-    public Bedroom(String name, String description){
-        super(name, description);
+    public Bedroom(String name, String description,Game game){
+        super(name, description,game);
     }
 
     public void conversation(ArrayList<String> wordList){
@@ -23,7 +23,8 @@ public class Bedroom extends Room{
             //if(Game.climbedOn=bed){}
                 //if the item you're trying to take is the blanket 
                 if (item2.equals(items.get(1))){
-                    //Game.changeHolding(items.get(1));
+                    System.out.println("You are now holding the blanket.");
+                    this.game.changeHolding(items.get(1));
                 }
         }
 

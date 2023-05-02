@@ -6,11 +6,13 @@ public class Room {
     String name;
     String description;
     Item addressing;
+    Game game;
 
-    public Room (String name, String description){
+    public Room (String name, String description, Game game){
         this.name=name;
         this.description=description;
         this.addressing=null;
+        this.game=game;
     }
 
     public String getName(){
@@ -86,8 +88,12 @@ public class Room {
                 //if the item is not an item --fill out 
                 //if you have jumped up on something -- fill out 
                 //if the item is not in the room 
+                
                 if(!this.isInRoom(word3)){
-                    System.out.println("This is not an item or this item is not in this room. "+this.lookAround());
+                    //fix window seat bug 
+                    if(!word3.equals("window")){
+                        System.out.println("This is not an item or this item is not in this room. "+this.lookAround());
+                    }
                 }
                 //if the item IS in the room 
                 else{
@@ -129,6 +135,10 @@ public class Room {
                 Boolean isClimb=word1.equals("Climb")||word1.equals("climb");
                 //if the first word is "Climb"
                 if(isClimb){
+                    // //if the item has already been climbed 
+                    // if(this.game.getClimbedOn().equals(item2)){
+                    //     System.out.println("You have already climbed on this item.");
+                    // }
                     //if the item isn't in room
                     if(!this.isInRoom(item2)){
                         System.out.println("This item is not in the room."+this.lookAround());
@@ -139,8 +149,11 @@ public class Room {
                         item2.showOptions();
                     }
                     //check if the item is in the room and if it's climbable 
+                    System.out.println(this.isInRoom(item2));
+                    System.out.println(item2.isClimbable());
                     if (this.isInRoom(item2)&&item2.isClimbable()){
-                        //game.changeClimbedOn(toClimb);
+
+                        this.game.changeClimbedOn(item2);
                         System.out.println("\nYou have climbed on to the "+word2+".");
                         if (item2.hasChild()){
                             System.out.println("On top of the "+word2+" there is: "+item2.getChild().getDescription());
@@ -169,7 +182,8 @@ public class Room {
             if(isJump&&word2.equals("off")){
                 //check if the item is jumpoffable
                 if(item2.isJumpOffAble()){
-                    //Game.changeClimbedOn=false;
+                    //remove from climbedOn
+                    this.game.changeClimbedOn(null);
                     System.out.println("You have jumped off of the "+word3);
                 }
             }
@@ -187,7 +201,7 @@ public class Room {
                 if(word1.equals("eat")||word1.equals("Eat")){
                     //Check whether you can eat the item 
                     if(item2.isEdible()){
-                        //Game.changeHaveEaten(true);
+                        this.game.changeHaveEaten(true);
                         System.out.println("Yum! You ate the "+word2);
                     }
                 }
@@ -207,28 +221,24 @@ public class Room {
             Item item2=this.returnItem(word2);
             //If you are addressing the item's parent 
             if(this.addressing.equals(item2.getParent())){
+                //if you have climbed parent!! --fill in 
                 //If the first word is eat 
                 if(word1.equals("drink")||word1.equals("Drink")){
                     //Check whether you can eat the item 
                     if(item2.isDrinkable()){
-                        //Game.changeHaveDrunk(true);
+                        this.game.changeHaveDrunk(true);
                         System.out.println("Gulp! You drank the "+word2);
                     }
                 }
             } 
             //If not addressing item (debug)
            // else{
-               // System.out.println("You cannot eat an item you are not at. Try 'Go to "+word2+"'");
+               // System.out.println("You cannot drink an item you are not at. Try 'Go to "+word2+"'");
             //}
 
         } catch (Exception e){
             //I don't care
-        }
-        
-        
-        
-        
-               
+        }           
         
 
 

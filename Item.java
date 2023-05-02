@@ -93,14 +93,6 @@ public class Item {
         }
     }
 
-    public Boolean isTakeable(){
-        if(this.isTakeable){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    
     public void addParent(Item i){
         this.parent=i;
     }

@@ -4,8 +4,8 @@ public class Bathroom extends Room{
     String name;
     String description;
 
-    public Bathroom(String name, String description){
-        super(name, description);
+    public Bathroom(String name, String description,Game game){
+        super(name, description,game);
     }
 
     public void conversation(ArrayList<String> wordList){
