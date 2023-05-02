@@ -173,6 +173,9 @@ public class Game {
         }
     }
 
+    public Item getClimbedOn(){
+        return this.climbedOn;
+    }
     public void changeClimbedOn(Item i){
         this.climbedOn=i;
     }
@@ -205,18 +208,19 @@ public class Game {
 
     public void play(){
 
+        System.out.println("\n"+"------------------------------------------------------------------------------------------");
         System.out.println("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
         System.out.println("* have eaten");
         System.out.println("* have drunk something");
         System.out.println("* have a blanket to sleep on");
         System.out.println("* be in direct sunlight\n");
         System.out.println("But be careful! Time is running out-- the sun is setting, and you have to get a good nap in before the sunset\n\n");
-        //TIMER SECTION 
         System.out.println("Right now, it is 12 pm. The sun is going to set at 7 pm. Cat time is different than human time (nine lives and all), so you will get warnings throughout the game of the time.");
         System.out.println("If you fail to nap before sunset, you will lose the game :(");
+        System.out.println("---------------------------------------------------------------------------------------------");
         
 
-        System.out.println("In this house, there is: ");
+        System.out.println("\nIn this house, there is: ");
         System.out.println("* A kitchen, "+this.kitchen.getDescription());
         System.out.println("* A garden, "+this.garden.getDescription());
         System.out.println("* A parlor, "+this.parlor.getDescription());
@@ -234,10 +238,8 @@ public class Game {
 
         //get start time of game
         Integer start=getTimeSeconds();
-        System.out.println(start);
         //initialize 
         this.current=getTimeSeconds(); 
-        System.out.println(this.current);
         //create Boolean for end of game 
         Boolean gameGoing=(start-this.current<300);
 
