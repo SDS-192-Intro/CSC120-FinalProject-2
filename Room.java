@@ -105,7 +105,13 @@ public class Room {
                     //If item has a parent 
                     if(item.hasParent){
                         //You have to be climbed on to the parent 
-                        //Exception for pond is in garden 
+                        //Exception for pond is in garden class
+
+                        //If you haven't climbed on anything yet, then you automatically won't be able to access child 
+                        if(this.game.climbedOn==null){
+                            System.out.println("You have to be climbed on to the "+item.getParent().getName()+" to go to the "+word4+". Try 'Go to the "+item.getParent().getName()+"' and then climbing it.");
+                        }
+                        //If you have climbed on something, but it is not the right parent
                         if(!this.game.climbedOn.equals(item.getParent())){
                             System.out.println("You have to be climbed on to the "+item.getParent().getName()+" to go to the "+word4);
                         }
@@ -118,19 +124,12 @@ public class Room {
                     }
                     //If item doesn't have a parent
                     else{
-                        System.out.println("i'm in here hee hee");
                         this.addressing=item;
                         System.out.println("\nYou are at the "+item.getName());
                         item.showOptions();
                     }
-
                 } 
-                
-
-            }
-
-                
-            } catch (Exception e){}
+            } } catch (Exception e){}
 
         
 
