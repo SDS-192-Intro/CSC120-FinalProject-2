@@ -1,4 +1,6 @@
+import java.io.ObjectStreamClass;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Room {
     
@@ -69,62 +71,132 @@ public class Room {
         String word1=wordList.get(0);
         String word2=wordList.get(1);
 
-        //TRY GO TO FUNCTIONS
+        //Check if they said "Look around"
+        if (word1.equals("Look")||word1.equals("look")&&word2.equals("around")){
+            System.out.println(this.lookAround());
+        }
+    
+        //If they said "Go to the *item*"
         try{
-            
-            //check if they say "look around"
-            if (word1.equals("Look")||word1.equals("look")&&word2.equals("around")){
-                System.out.println(this.lookAround());
-            }
-
-            //check if they say 'go to' that the item is in room 
+            //Find the third & fourth word 
             String word3=wordList.get(2);
-            Item item=this.returnItem(word3);
-            Boolean isGo=false;
-            if (word1.equals("Go")||word1.equals("go")){
-                isGo=true;
-            }
-            if(isGo&& word2.equals("to")){
-                //if the item is not an item --fill out 
-                //if you have jumped up on something -- fill out 
-                //if the item is not in the room 
+            String word4=wordList.get(3);
+
+            //word1 should be "Go" or "go", word2 should be "to"
+            //word3 should be "the", and word 4 should be the *item*
+
+            Boolean word1IsGo=word1.equals("Go")||word1.equals("go");
                 
-                if(!this.isInRoom(word3)){
-                    //fix window seat bug 
-                    if(!word3.equals("window")){
-                        System.out.println("This is not an item or this item is not in this room. "+this.lookAround());
-                    }
+            //Check if they have said "Go to the ..."
+            if (word1IsGo && word2.equals("to") && word3.equals("the")){
+
+                //Return the string from response as an item 
+                Item item=this.returnItem(word4);
+                
+                //Check that the item is in the room 
+                if (!this.isInRoom(item)){
+                    System.out.println("i'm in here");
+                    System.out.println("This is either not an item or this item is not in the room.");
+                    this.lookAround();
                 }
-                //if the item IS in the room 
+
+                //If the item is an item and is in the room 
                 else{
-                //if the item has a parent, don't let them go right to the item 
-                    if (item.hasParent()){
-                        Item parent=item.getParent();
-                        //if we are already addressing the parent 
-                        if(this.addressing==parent){
-                            //then we are allowed to address the item  
+                    //If item has a parent 
+                    if(item.hasParent){
+                        //You have to be climbed on to the parent 
+                        //Exception for pond is in garden 
+                        if(!this.game.climbedOn.equals(item.getParent())){
+                            System.out.println("You have to be climbed on to the "+item.getParent().getName()+" to go to the "+word4);
+                        }
+                        //They are climbed onto the parent 
+                        else{
                             this.addressing=item;
                             System.out.println("\nYou are at the "+item.getName());
                             item.showOptions();
                         }
-                        else{
-                            System.out.println("You cannot get to "+item.getName()+" without first going to "+parent.getName()+". Try calling 'Go to "+parent.getName()+"'");
-                        }
-                        }
+                    }
+                    //If item doesn't have a parent
                     else{
+                        System.out.println("i'm in here hee hee");
                         this.addressing=item;
                         System.out.println("\nYou are at the "+item.getName());
                         item.showOptions();
-                        if(item.hasChild){
-                            item.getChild().getDescription();
-                            item.getChild().showOptions();
-                        }
                     }
-                }   
+
+                } 
+                
+
             }
-        } catch (Exception e){
-            //i don't care
-        }
+
+                
+            } catch (Exception e){}
+
+        
+
+        // //TRY GO TO FUNCTIONS
+        // try{
+            
+        //     //Check that the item IS an item
+          
+
+        //     //Check that the item is in the room 
+            
+
+        //     //If the item is an item and is in the room, then check if the item has a parent 
+            
+
+        //     //If the item is an item and is in the room but doesn't have a parent, change this.addressing
+            
+            
+        //     //check if they say 'go to' that the item is in room 
+        //     String word3=wordList.get(2);
+        //     Item item=this.returnItem(word3);
+        //     Boolean isGo=false;
+        //     if (word1.equals("Go")||word1.equals("go")){
+        //         isGo=true;
+        //     }
+        //     if(isGo&& word2.equals("to")){
+        //         //if the item is not an item --fill out 
+        //         //if you have jumped up on something -- fill out 
+        //         //if the item is not in the room 
+                
+        //         if(!this.isInRoom(word3)){
+        //             //fix window seat bug 
+        //             if(!word3.equals("window")){
+        //                 System.out.println("This is not an item or this item is not in this room. "+this.lookAround());
+        //             }
+        //         }
+        //         //if the item IS in the room 
+        //         else{
+        //         //if the item has a parent, don't let them go right to the item 
+        //             if (item.hasParent()){
+        //                 Item parent=item.getParent();
+        //                 //if we are already addressing the parent 
+        //                 if(this.addressing==parent){
+        //                     //then we are allowed to address the item  
+        //                     this.addressing=item;
+        //                     System.out.println("\nYou are at the "+item.getName());
+        //                     item.showOptions();
+        //                 }
+        //                 else{
+        //                     System.out.println("You cannot get to "+item.getName()+" without first going to "+parent.getName()+". Try calling 'Go to "+parent.getName()+"'");
+        //                 }
+        //                 }
+        //             else{
+        //                 this.addressing=item;
+        //                 System.out.println("\nYou are at the "+item.getName());
+        //                 item.showOptions();
+        //                 if(item.hasChild){
+        //                     item.getChild().getDescription();
+        //                     item.getChild().showOptions();
+        //                 }
+        //             }
+        //         }   
+        //     }
+        // } catch (Exception e){
+        //     //i don't care
+        // }
 
 
         //TRY CLIMB
@@ -241,7 +313,16 @@ public class Room {
         }           
         
 
-
+        //Message for not taking an item you can't take 
+        try{
+            Item item2=this.returnItem(word2);
+            if(word1.equals("take")||word1.equals("Take")){
+                if(!item2.isTakeable){
+                    System.out.println("The "+word2+" is not takeable.");
+                    item2.showOptions();
+                }
+            }
+        } catch(Exception e){}
     }
 
 

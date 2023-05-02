@@ -6,4 +6,5 @@ public class Garden extends Room {
     public Garden(String name, String description,Game game){
         super(name, description,game);
     }
+    //make an exception for climb 
 }

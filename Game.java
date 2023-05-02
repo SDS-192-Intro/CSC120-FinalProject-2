@@ -118,15 +118,16 @@ public class Game {
 
     //method to see if cat can nap
     public boolean canNap(){
-        System.out.println("parlor: "+ this.location.equals("parlor"));
-        System.out.println("drink: "+this.haveDrunk);
-        System.out.println("eat: "+this.haveEaten);
-        if(Objects.nonNull(this.holding)){
-            System.out.println("hold: "+this.holding.equals(this.blanket));
-        }
-        if(Objects.nonNull(this.climbedOn)){
-            System.out.println("climb: "+this.climbedOn.equals(this.windowSeat));
-        }
+        //Ways to check if canNap() is working right 
+        // System.out.println("parlor: "+ this.location.equals("parlor"));
+        // System.out.println("drink: "+this.haveDrunk);
+        // System.out.println("eat: "+this.haveEaten);
+        // if(Objects.nonNull(this.holding)){
+        //     System.out.println("hold: "+this.holding.equals(this.blanket));
+        // }
+        // if(Objects.nonNull(this.climbedOn)){
+        //     System.out.println("climb: "+this.climbedOn.equals(this.windowSeat));
+        // }
 
         if(Objects.nonNull(this.holding)&&Objects.nonNull(this.climbedOn)){
             if(this.location.equals("parlor")&& this.haveDrunk && this.haveEaten && this.holding.equals(this.blanket) && this.climbedOn.equals(this.windowSeat)){
@@ -399,9 +400,8 @@ public class Game {
             //reset current time & boolean
             this.current=getTimeSeconds();
             gameGoing=(this.current-start<300);
-            //call canNap()
+            //call canNap() to update status 
             this.readyToNap=this.canNap();
-            System.out.println(this.readyToNap);
         }
         
         if(this.canNap()){
