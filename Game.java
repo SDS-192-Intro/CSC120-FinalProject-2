@@ -64,7 +64,7 @@ public class Game {
         this.blanket=blanket;
         bed.addChild(blanket);
         this.blanket.addParent(bed);
-        Item dresser=new Item("dresser","A handsome chestnut dresser filled with woolen sweaters",false,false,false,false,false,false,false);
+        Item dresser=new Item("dresser","A handsome chestnut dresser filled with woolen sweaters",false,false,true,false,true,false,false);
         this.bedroom.addItem(bed);
         this.bedroom.addItem(blanket);
         this.bedroom.addItem(dresser);
@@ -73,8 +73,10 @@ public class Game {
         Parlor parlor=new Parlor("Parlor", "a homey parlor room. ",this);
         this.parlor=parlor;
         Item windowSeat=new Item("window seat","a cozy yet bare window seat drenched in sunlight",false,false,true, false,true,false,false);
+        Item couch=new Item("couch","a plump green corduroy couch",false,false,true,false,true,false,false);
         this.windowSeat=windowSeat;
         this.parlor.addItem(windowSeat);
+        this.parlor.addItem(couch);
 
         //bathroom
         Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom. ",this);
