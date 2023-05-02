@@ -322,52 +322,59 @@ public class Game {
 
             String response=in.nextLine();
 
-            //First, try to parse to see if you need to change location 
+            //First, try to parse to see if we need to change this.location 
 
-            //turn response into an array list of words 
+            //Turn response into an array list of words 
             ArrayList<String> wordList = new ArrayList<String>();
             for(String word : response.split(" ")) {
                 wordList.add(word);
             }
 
-            //check that response is more than one word
+            //Check that the response is more than one word
             if(wordList.size()<2){
                 System.out.println("Your response should be more than one word. Try saying 'Go to' a room or an item.");
                 continue;
             }
 
             try{
+                //get words from response 
                 String word1=wordList.get(0);
                 String word2=wordList.get(1);
                 String word3=wordList.get(2);
-                boolean isGo=false;
-                if (word1.equals("Go")||word1.equals("go")){
-                    isGo=true;
-                }
-                if (isGo&& word2.equals("to")&& this.isARoom(word3)){
-                   //make array list with all the neighbors for a given room
-        
-                   ArrayList<Room> neighbors=this.getNeighbors(locationAsRoom);
+                String word4=wordList.get(3);
 
-                    if(neighbors.contains(this.turnNameToRoom(word3))){
-                        this.location=word3;
+                boolean word1IsGo=word1.equals("Go")||word1.equals("go");
+
+                //Check if the response is "Go to the *room*"
+                if (word1IsGo && word2.equals("to") && word3.equals("the")&&this.isARoom(word4)){
+    
+                    //Make array list with all the neighbors for the current room
+                    ArrayList<Room> neighbors=this.getNeighbors(locationAsRoom);
+
+                    //If the fourth word IS a neighbor to the current room 
+                    if(neighbors.contains(this.turnNameToRoom(word4))){
+                        //Change the location to the fourth word in the response
+                        this.location=word4;
                         locationAsRoom=this.turnNameToRoom(this.location);
 
+                        //Print update 
                         System.out.println("\nRight now, you are in "+locationAsRoom.getDescription()+locationAsRoom.lookAround());
                         System.out.println("There are doors connecting to: ");
+                        //Print neighbors
                         this.printNeighbors(this.turnNameToRoom(this.location));
 
-                        //reset current time 
+                        //Reset current time & canNap (restarting while loop)
                         this.current=getTimeSeconds(); 
                         gameGoing=(this.current-start<300);
                         this.readyToNap=this.canNap();
                         continue;
                     }
-                    if(this.isARoom(word3)){
+                //If the fourth word is NOT a neighbor 
+                    else{
                         System.out.println("There is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
                         this.printNeighbors(locationAsRoom);
 
-                        //reset current time 
+                        //Reset current time & canNap (restarting while loop)
                         this.current=getTimeSeconds(); 
                         gameGoing=(this.current-start<300);
                         this.readyToNap=this.canNap();
