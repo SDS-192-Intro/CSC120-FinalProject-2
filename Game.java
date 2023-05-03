@@ -311,11 +311,11 @@ public class Game {
         
 
         this.slowPrint("\nIn this house, there is: ");
-        this.slowPrint("* A kitchen, "+this.kitchen.getDescription());
-        this.slowPrint("* A garden, "+this.garden.getDescription());
-        this.slowPrint("* A parlor, "+this.parlor.getDescription());
-        this.slowPrint("* A bedroom, "+this.bedroom.getDescription());
-        this.slowPrint("* A bathroom, "+this.bathroom.getDescription()+"\n");
+        this.slowPrint(this.kitchen.getDescription());
+        this.slowPrint(this.garden.getDescription());
+        this.slowPrint(this.parlor.getDescription());
+        this.slowPrint(this.bedroom.getDescription());
+        this.slowPrint(this.bathroom.getDescription()+"\n");
 
         System.out.println("------------------------");
         System.out.println("|          | bathroom  |");
@@ -331,7 +331,7 @@ public class Game {
     
 
 
-        this.slowPrint("\nRight now, you are in the kitchen. "+this.kitchen.lookAround());
+        this.slowPrint("\nRight now, you are in the kitchen. \n"+this.kitchen.lookAround());
         this.slowPrint("There are doors connecting to: ");
         this.printNeighbors(this.turnNameToRoom(this.location));
         System.out.println();
