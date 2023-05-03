@@ -331,7 +331,7 @@ public class Game {
     
 
 
-        this.slowPrint("\nRight now, you are in the kitchen. \n"+this.kitchen.lookAround());
+        this.slowPrint("\nRight now, you are in the kitchen. \n\n"+this.kitchen.lookAround());
         this.slowPrint("There are doors connecting to: ");
         this.printNeighbors(this.turnNameToRoom(this.location));
         System.out.println();
