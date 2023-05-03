@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 
 public class Game {
@@ -124,6 +125,18 @@ public class Game {
         //start the success boolean
         this.success=false;
 
+    }
+
+    public void slowPrint(String toPrint) {
+        for (int i = 0; i<toPrint.length(); i++) {
+          char c = toPrint.charAt(i);
+          System.out.print(c);
+          try {
+            TimeUnit.MILLISECONDS.sleep(15);
+          }
+          catch (Exception e) {
+          }
+        }
     }
 
     //method to see if cat can nap
@@ -285,7 +298,7 @@ public class Game {
     public void play(){
 
         System.out.println("\n"+"------------------------------------------------------------------------------------------");
-        System.out.println("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
+        this.slowPrint("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
         System.out.println("* have eaten");
         System.out.println("* have drunk something");
         System.out.println("* have a blanket to sleep on");
@@ -321,7 +334,7 @@ public class Game {
 
         while(gameGoing && !this.readyToNap && !this.stuckInBath){
 
-            // TIMER SECTION 
+            // // TIMER SECTION 
             // Timer timer=new Timer();
             // long first=6000;
             // long second=120000;
