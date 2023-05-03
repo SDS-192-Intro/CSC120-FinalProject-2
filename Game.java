@@ -399,7 +399,7 @@ public class Game {
 
             //Check that the response is more than one word
             if(wordList.size()<2){
-                System.out.println("Your response should be more than one word. Try saying 'Go to' a room or an item.");
+                System.out.println("\nYour response should be more than one word. Try saying 'Go to' a room or an item.");
                 continue;
             }
 
@@ -512,7 +512,7 @@ public class Game {
         }
         
         if(this.canNap()){
-            System.out.println("/nSNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
+            System.out.println("\nSNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
             System.out.println("GAME OVER.");
         }
         if(!gameGoing){
