@@ -18,7 +18,7 @@ public class Bathroom extends Room{
             String word3=wordList.get(2);
             Boolean isJump=word1.equals("jump")||word1.equals("Jump");
             if (isJump&& word2.equals("off")&&word3.equals("bathtub")){
-                System.out.println("You cannot jump out of the bathtub. You are stuck here, napless until the end of the game.");
+                this.game.slowPrint("You cannot jump out of the bathtub. You are stuck here, napless until the end of the game.");
                 //end game somehow -- add stuck in bathtub to game 
             }
         } catch (Exception e){}

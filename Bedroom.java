@@ -31,7 +31,7 @@ public class Bedroom extends Room{
                     //if they have climbed onto the bed
                     if(this.game.getClimbedOn().equals(this.returnItem("bed"))){
                         this.game.changeHolding(this.returnItem("blanket"));
-                        System.out.println("\nYou are now holding the blanket. \nCurrent status:");
+                        this.game.slowPrint("\nYou are now holding the blanket. \nCurrent status:");
                         this.game.printNapStatus();
                         this.returnItem("bed").showOptions();
 
@@ -39,7 +39,7 @@ public class Bedroom extends Room{
                 }
                 //if they haven't climbed onto anything
                 else{
-                    System.out.println("\nYou need to climb on to the bed before taking the blanket.");
+                    this.game.slowPrint("\nYou need to climb on to the bed before taking the blanket.");
                 }
             }
         } catch(Exception e){}
