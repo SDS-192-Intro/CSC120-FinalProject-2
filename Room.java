@@ -81,7 +81,7 @@ public class Room {
         //Check if they said "Look around"
         Boolean word1IsLook=word1.equals("Look")||word1.equals("look");
         if (word1IsLook &&word2.equals("around")){
-            System.out.println(this.lookAround());
+            this.game.slowPrint(this.lookAround());
         }
     
         //"Go to the *item*"
@@ -107,7 +107,7 @@ public class Room {
                     //If this.addressing contains item
                     if(this.addressing.equals(item)){
                         this.game.changeSuccess(true);
-                        System.out.println("\nYou are already at the "+word4+".");
+                        this.game.slowPrint("\nYou are already at the "+word4+".");
                         item.showOptions();
                         //Throw new exception to avoid re-updating this.addressing (it will not print)
                         throw new RuntimeException();
@@ -117,7 +117,7 @@ public class Room {
                 //Check that the item is in the room (also applies to locations)
                 if (!this.isInRoom(item)){
                     this.game.changeSuccess(true);
-                    System.out.println("\nThat is not a valid location nor item.");
+                    this.game.slowPrint("\nThat is not a valid location nor item.");
                     this.lookAround();
                 }
 
@@ -130,18 +130,18 @@ public class Room {
                         //If you haven't climbed on anything yet, then you automatically won't be able to access child 
                         if(this.game.climbedOn==null){
                             this.game.changeSuccess(true);
-                            System.out.println("You have to be climbed on to the "+item.getParent().getName()+" to go to the "+word4+". Try [Go to the "+item.getParent().getName()+"] and then climbing it.");
+                            this.game.slowPrint("You have to be climbed on to the "+item.getParent().getName()+" to go to the "+word4+". Try [Go to the "+item.getParent().getName()+"] and then climbing it.");
                         }
                         //If you have climbed on something, but it is not the right parent
                         if(!this.game.climbedOn.equals(item.getParent())){
                             this.game.changeSuccess(true);
-                            System.out.println("You have to be climbed on to the "+item.getParent().getName()+" to go to the "+word4);
+                            this.game.slowPrint("You have to be climbed on to the "+item.getParent().getName()+" to go to the "+word4);
                         }
                         //They are climbed onto the parent 
                         else{
                             this.game.changeSuccess(true);
                             this.addressing=item;
-                            System.out.println("\nYou are at the "+item.getName());
+                            this.game.slowPrint("\nYou are at the "+item.getName());
                             item.showOptions();
                         }
                     }
@@ -149,7 +149,7 @@ public class Room {
                     else{
                         this.game.changeSuccess(true);
                         this.addressing=item;
-                        System.out.println("\nYou are at the "+item.getName());
+                        this.game.slowPrint("\nYou are at the "+item.getName());
                         item.showOptions();
                     }
                 } 
@@ -177,26 +177,26 @@ public class Room {
                             //Check whether we have already climbed the item
                             if(this.game.getClimbedOn().equals(item)){
                                 this.game.changeSuccess(true);
-                                System.out.println("\nYou have already climbed onto the "+word3+".");
+                                this.game.slowPrint("\nYou have already climbed onto the "+word3+".");
                             }
                         }
                         //Then you are allowed to climb the item 
                         else{
                             this.game.changeSuccess(true);
-                            System.out.println("\nYou have climbed on "+word3+".");
+                            this.game.slowPrint("\nYou have climbed on "+word3+".");
                             this.game.changeClimbedOn(item);
                             //if the item has a child (ex. milk on table), then show options for child
                             if(item.hasChild()){
                                 //change the wording for garden 
                                 if(word3.equals("Pond")||word3.equals("pond")){
                                     this.game.changeSuccess(true);
-                                    System.out.println("There are "+item.getChild().getName()+" in the "+word3+".");
-                                    System.out.println("\nTo get to the "+item.getChild().getName()+" try [go to the "+item.getChild().getName()+"].");
+                                    this.game.slowPrint("There are "+item.getChild().getName()+" in the "+word3+".");
+                                    this.game.slowPrint("\nTo get to the "+item.getChild().getName()+" try [go to the "+item.getChild().getName()+"].");
                                 }
                                 else{
                                     this.game.changeSuccess(true);
-                                    System.out.println("The "+item.getChild().getName()+" is on top of the "+word3+".");
-                                    System.out.println("\nTo get to the "+item.getChild().getName()+" try [go to the "+item.getChild().getName()+"].");
+                                    this.game.slowPrint("The "+item.getChild().getName()+" is on top of the "+word3+".");
+                                    this.game.slowPrint("\nTo get to the "+item.getChild().getName()+" try [go to the "+item.getChild().getName()+"].");
                                 }
                             }
                         }
@@ -204,14 +204,14 @@ public class Room {
                     //If not climbable, say that it is not climbable & print options 
                     else{
                         this.game.changeSuccess(true);
-                        System.out.println("The "+word3+" is not climbable.");
+                        this.game.slowPrint("The "+word3+" is not climbable.");
                         item.showOptions();
                     }
                 }
                 //If we are not addressing any item or if we are addressing another item
                 if(Objects.isNull(this.addressing)||!this.addressing.equals(item)){
                     this.game.changeSuccess(true);
-                    System.out.println("You cannot climb this item if you are not at it. Try 'Go to "+item.getName()+"'.");
+                    this.game.slowPrint("You cannot climb this item if you are not at it. Try 'Go to "+item.getName()+"'.");
                 }
             }
 
@@ -234,32 +234,32 @@ public class Room {
                                 //Check whether we have already climbed the item
                                 if(this.game.getClimbedOn().equals(item)){
                                     this.game.changeSuccess(true);
-                                    System.out.println("\nYou have already climbed onto the "+this.getName()+".");
+                                    this.game.slowPrint("\nYou have already climbed onto the "+this.getName()+".");
                                 }
                             }
                             //Then you are allowed to climb the item 
                             else{
                                 this.game.changeSuccess(true);
-                                System.out.println("\nYou have climbed on "+this.getName()+".");
+                                this.game.slowPrint("\nYou have climbed on "+this.getName()+".");
                                 this.game.changeClimbedOn(item);
                                 //if the item has a child (ex. milk on table), then show options for child
                                 if(item.hasChild()){
-                                    System.out.println("The "+item.getChild().getName()+" is on top of the "+this.getName()+".");
-                                    System.out.println("\nTo get to the "+item.getChild().getName()+" try [go to the "+item.getChild().getName()+"].");
+                                    this.game.slowPrint("The "+item.getChild().getName()+" is on top of the "+this.getName()+".");
+                                    this.game.slowPrint("\nTo get to the "+item.getChild().getName()+" try [go to the "+item.getChild().getName()+"].");
                                 }
                         }
                         }
                         //If not climbable, say that it is not climbable & print options 
                         else{
                             this.game.changeSuccess(true);
-                            System.out.println("The "+this.getName()+" is not climbable.");
+                            this.game.slowPrint("The "+this.getName()+" is not climbable.");
                             item.showOptions();
                         }   
                     }
                     //If we are not addressing any item or if we are addressing another item
                     if(Objects.isNull(this.addressing)||!this.addressing.equals(item)){
                         this.game.changeSuccess(true);
-                        System.out.println("You cannot climb this item if you are not at it. Try 'Go to "+this.getName()+"'.");
+                        this.game.slowPrint("You cannot climb this item if you are not at it. Try 'Go to "+this.getName()+"'.");
                 }
                 }
 
@@ -281,7 +281,7 @@ public class Room {
                  //If you have NOT climbed on to the item 
                 if(Objects.isNull(this.game.getClimbedOn())){
                     this.game.changeSuccess(true);
-                    System.out.println("\nYou need to have climbed onto the "+item.getName()+" in order to jump off of it. Try [climb the "+item.getName()+"].");
+                    this.game.slowPrint("\nYou need to have climbed onto the "+item.getName()+" in order to jump off of it. Try [climb the "+item.getName()+"].");
                 }
 
                 //If you have climbed onto the item
@@ -294,9 +294,9 @@ public class Room {
                             this.game.changeSuccess(true);
                             //Change climbedOn attribute in the game 
                             this.game.changeClimbedOn(null);
-                            System.out.println("\nYou have jumped off of the "+item.getName()+".");
-                            System.out.println("You are now standing next to the "+item.getName()+" in the "+this.getName()+".\n");
-                            System.out.println(this.lookAround()+"\nThere are doors connecting to: \n");
+                            this.game.slowPrint("\nYou have jumped off of the "+item.getName()+".");
+                            this.game.slowPrint("You are now standing next to the "+item.getName()+" in the "+this.getName()+".\n");
+                            this.game.slowPrint(this.lookAround()+"\nThere are doors connecting to: \n");
                             this.game.printNeighbors(this);
                             //throw runtime exception to avoid being caught in the final conditional
                             throw new RuntimeException();
@@ -308,9 +308,9 @@ public class Room {
                                 this.game.changeSuccess(true);
                                 //Change climbedOn attribute in the game 
                                 this.game.changeClimbedOn(null);
-                                System.out.println("\nYou have jumped off of the "+item.getName()+".");
-                                System.out.println("You are now standing next to the "+item.getName()+" in the "+item.getName()+".");
-                                System.out.println(this.lookAround()+"\nThere are doors connecting to: \n");
+                                this.game.slowPrint("\nYou have jumped off of the "+item.getName()+".");
+                                this.game.slowPrint("You are now standing next to the "+item.getName()+" in the "+item.getName()+".");
+                                this.game.slowPrint(this.lookAround()+"\nThere are doors connecting to: \n");
                                 this.game.printNeighbors(this);
                                 //throw runtime exception to avoid being caught in the final conditional
                                 throw new RuntimeException();
@@ -319,7 +319,7 @@ public class Room {
                         //If you are NOT addressing the item
                         else{
                             this.game.changeSuccess(true);
-                            System.out.println("\nIn order to jump off, you must first be *at* the "+item.getName()+". Try [go to the "+item.getName()+"], and then [jump off of the "+item.getName()+"].");
+                            this.game.slowPrint("\nIn order to jump off, you must first be *at* the "+item.getName()+". Try [go to the "+item.getName()+"], and then [jump off of the "+item.getName()+"].");
                             //throw runtime exception to avoid being caught in the final conditional
                             throw new RuntimeException();
                         }
@@ -327,8 +327,8 @@ public class Room {
                     //If it is NOT jump-off-able (only the case for the bathtub)
                     else{
                         this.game.changeSuccess(true);
-                        System.out.println("\nYou cannot jump out of the slippery porcelain bath. Unfortuntely, this means that you will not be able to find the perfect nap spot before sunset.");
-                        System.out.println("Ah well, you can just rest your eyes....");
+                        this.game.slowPrint("\nYou cannot jump out of the slippery porcelain bath. Unfortuntely, this means that you will not be able to find the perfect nap spot before sunset.");
+                        this.game.slowPrint("Ah well, you can just rest your eyes....");
                         this.game.changeStuckInBath(true);
                         //throw runtime exception to avoid being caught in the final conditional
                         throw new RuntimeException();
@@ -354,21 +354,21 @@ public class Room {
                         //If the item is drinkable 
                         if(item.isEdible()){
                             this.game.changeHaveEaten(true);
-                            System.out.println("\nGulllp!! Delicious");
-                            System.out.println("\nCurrent status: ");
+                            this.game.slowPrint("\nGulllp!! Delicious");
+                            this.game.slowPrint("\nCurrent status: ");
                             this.game.printNapStatus();
-                            System.out.println("\nYou are currently on the pond. Try [jump off of the pond]");
+                            this.game.slowPrint("\nYou are currently on the pond. Try [jump off of the pond]");
                         }
                         //If the item is not  drinkable 
                     }
                     //If we are not at the item
                     else{
-                        System.out.println("You need to be at the "+word3+" in order to eat it. Try [go to the "+word3+"].");
+                        this.game.slowPrint("You need to be at the "+word3+" in order to eat it. Try [go to the "+word3+"].");
                     }
                 }
                 //If we have already eaten
                 else{
-                    System.out.println("\nYou have already eaten the "+word3+".\n");
+                    this.game.slowPrint("\nYou have already eaten the "+word3+".\n");
                 }
             }
         }
@@ -391,21 +391,21 @@ public class Room {
                         //If the item is drinkable 
                         if(item.isDrinkable){
                             this.game.changeHaveDrunk(true);
-                            System.out.println("\nSlurrrp!!! So refreshing!");
-                            System.out.println("\nCurrent status: ");
+                            this.game.slowPrint("\nSlurrrp!!! So refreshing!");
+                            this.game.slowPrint("\nCurrent status: ");
                             this.game.printNapStatus();
-                            System.out.println("\nYou are climbed on the "+item.getParent().getName()+". You can [jump off of the "+item.getParent().getName()+"]");
+                            this.game.slowPrint("\nYou are climbed on the "+item.getParent().getName()+". You can [jump off of the "+item.getParent().getName()+"]");
                         }
                         //If the item is not  drinkable 
                     }
                     //If we are not at the item
                     else{
-                        System.out.println("You need to be at the "+word3+" in order to drink it. Try [go to the "+word3+"].");
+                        this.game.slowPrint("You need to be at the "+word3+" in order to drink it. Try [go to the "+word3+"].");
                     }
                 }
                 //If we have already drunk it 
                 else{
-                    System.out.println("You have already drunk the "+word3+".\n");
+                    this.game.slowPrint("You have already drunk the "+word3+".\n");
                 }
             }
         }
@@ -424,7 +424,7 @@ public class Room {
                 //If the item is not takeable
                 if(!item.isTakeable){
                     this.game.changeSuccess(true);
-                    System.out.println("\nYou cannot take this item. The options for "+word3+" are: ");
+                    this.game.slowPrint("\nYou cannot take this item. The options for "+word3+" are: ");
                     item.showOptions();
                 }
             }
