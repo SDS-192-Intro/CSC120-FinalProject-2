@@ -137,6 +137,7 @@ public class Game {
           catch (Exception e) {
           }
         }
+        System.out.println("");
     }
 
     //method to see if cat can nap
@@ -167,26 +168,26 @@ public class Game {
     
     public void printNapStatus(){  
         if(this.haveEaten){
-            System.out.println("* You have eaten.");
+            this.slowPrint("* You have eaten.");
         } else{
-            System.out.println("* You have NOT YET eaten.");
+            this.slowPrint("* You have NOT YET eaten.");
         }
         if(this.haveDrunk){
-            System.out.println("* You have drunk something.");
+            this.slowPrint("* You have drunk something.");
         }else{
-            System.out.println("* You have NOT YET drunk something.");
+            this.slowPrint("* You have NOT YET drunk something.");
         }
         if(Objects.nonNull(this.holding)){
             if(this.holding.equals(this.blanket)){
-                System.out.println("* You are holding a blanket to sleep on.");
+                this.slowPrint("* You are holding a blanket to sleep on.");
             } 
         }else{
-            System.out.println("* You are NOT YET holding a blanket to sleep on.");
+            this.slowPrint("* You are NOT YET holding a blanket to sleep on.");
         }
         if(this.location.equals("parlor")&&this.climbedOn.equals(this.windowSeat)){
-            System.out.println("* You are in a sunny spot to sleep.");
+            this.slowPrint("* You are in a sunny spot to sleep.");
         }else{
-            System.out.println("* You are NOT YET in a sunny spot to sleep.");
+            this.slowPrint("* You are NOT YET in a sunny spot to sleep.");
         }
     }
     
@@ -207,7 +208,7 @@ public class Game {
     //print neighbors
     public void printNeighbors(Room current){
         for (Room r : this.getNeighbors(current)){
-            System.out.println("the "+r.getName());
+            this.slowPrint("the "+r.getName());
         }    
     }
 
@@ -299,25 +300,25 @@ public class Game {
 
         System.out.println("\n"+"------------------------------------------------------------------------------------------");
         this.slowPrint("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
-        System.out.println("* have eaten");
-        System.out.println("* have drunk something");
-        System.out.println("* have a blanket to sleep on");
-        System.out.println("* be in direct sunlight\n");
-        System.out.println("But be careful! Time is running out-- the sun is setting, and you have to get a good nap in before the sunset\n\n");
-        System.out.println("Right now, it is 12 pm. The sun is going to set at 7 pm. Cat time is different than human time (nine lives and all), so you will get warnings throughout the game of the time.");
-        System.out.println("If you fail to nap before sunset, you will lose the game :(");
+        this.slowPrint("* have eaten");
+        this.slowPrint("* have drunk something");
+        this.slowPrint("* have a blanket to sleep on");
+        this.slowPrint("* be in direct sunlight\n");
+        this.slowPrint("But be careful! Time is running out-- the sun is setting, and you have to get a good nap in before the sunset\n\n");
+        this.slowPrint("Right now, it is 12 pm. The sun is going to set at 7 pm. Cat time is different than human time (nine lives and all), so you will get warnings throughout the game of the time.");
+        this.slowPrint("If you fail to nap before sunset, you will lose the game :(");
         System.out.println("---------------------------------------------------------------------------------------------");
         
 
-        System.out.println("\nIn this house, there is: ");
-        System.out.println("* A kitchen, "+this.kitchen.getDescription());
-        System.out.println("* A garden, "+this.garden.getDescription());
-        System.out.println("* A parlor, "+this.parlor.getDescription());
-        System.out.println("* A bedroom, "+this.bedroom.getDescription());
-        System.out.println("* A bathroom, "+this.bathroom.getDescription());
-        System.out.println("Get started by saying 'Go to the ____' (a room or object of your choosing)");
-        System.out.println("\nRight now, you are in the kitchen. "+this.kitchen.lookAround());
-        System.out.println("There are doors connecting to: ");
+        this.slowPrint("\nIn this house, there is: ");
+        this.slowPrint("* A kitchen, "+this.kitchen.getDescription());
+        this.slowPrint("* A garden, "+this.garden.getDescription());
+        this.slowPrint("* A parlor, "+this.parlor.getDescription());
+        this.slowPrint("* A bedroom, "+this.bedroom.getDescription());
+        this.slowPrint("* A bathroom, "+this.bathroom.getDescription());
+        this.slowPrint("Get started by saying 'Go to the ____' (a room or object of your choosing)");
+        this.slowPrint("\nRight now, you are in the kitchen. "+this.kitchen.lookAround());
+        this.slowPrint("There are doors connecting to: ");
         this.printNeighbors(this.turnNameToRoom(this.location));
         System.out.println();
 
@@ -343,11 +344,11 @@ public class Game {
             // timer.schedule(new TimerTask(){
             //     public void run(){
             //         if(this.ready){
-            //             System.out.println("It's already 2:24 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-            //             System.out.println("* have eaten");
-            //             System.out.println("* have drunk something");
-            //             System.out.println("* have a blanket to sleep on");
-            //             System.out.println("* be in direct sunlight \nBefore you can nap.");
+            //             this.slowPrint("It's already 2:24 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
+            //             this.slowPrint("* have eaten");
+            //             this.slowPrint("* have drunk something");
+            //             this.slowPrint("* have a blanket to sleep on");
+            //             this.slowPrint("* be in direct sunlight \nBefore you can nap.");
             //         }
             //     }
             // },first);
@@ -355,11 +356,11 @@ public class Game {
             // timer.schedule(new TimerTask(){
             //     public void run(){
             //         if(this.ready){
-            //             System.out.println("It's already 3:48 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-            //             System.out.println("* have eaten");
-            //             System.out.println("* have drunk something");
-            //             System.out.println("* have a blanket to sleep on");
-            //             System.out.println("* be in direct sunlight \nBefore you can nap.");
+            //             this.slowPrint("It's already 3:48 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
+            //             this.slowPrint("* have eaten");
+            //             this.slowPrint("* have drunk something");
+            //             this.slowPrint("* have a blanket to sleep on");
+            //             this.slowPrint("* be in direct sunlight \nBefore you can nap.");
             //         }  
             //     }
             // },second);
@@ -367,21 +368,21 @@ public class Game {
             // timer.schedule(new TimerTask(){
             //     public void run(Boolean ready){
             //         if(ready){
-            //             System.out.println("It's already 5:12 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-            //             System.out.println("* have eaten");
-            //             System.out.println("* have drunk something");
-            //             System.out.println("* have a blanket to sleep on");
-            //             System.out.println("* be in direct sunlight \nBefore you can nap.");
+            //             this.slowPrint("It's already 5:12 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
+            //             this.slowPrint("* have eaten");
+            //             this.slowPrint("* have drunk something");
+            //             this.slowPrint("* have a blanket to sleep on");
+            //             this.slowPrint("* be in direct sunlight \nBefore you can nap.");
             //         }
             //     }
             // },third);
         
 
-            System.out.println();
+            System.out.println("");
 
             Room locationAsRoom=this.turnNameToRoom(this.location);
 
-            System.out.println("What would you like to do?");
+            this.slowPrint("What would you like to do?");
             System.out.print(">>> ");
 
             String response=in.nextLine();
@@ -396,23 +397,23 @@ public class Game {
             
             //Check if the response is "Help"
             if(wordList.get(0).equals("Help")||wordList.get(0).equals("help")){
-                System.out.println("\nRemember, in order to nap, you must: ");
-                System.out.println("* have eaten");
-                System.out.println("* have drunk something");
-                System.out.println("* have a blanket to sleep on");
-                System.out.println("* be in direct sunlight\n");
-                System.out.println("\nTry these commands:");
-                System.out.println("* 'Go to the _____'");
-                System.out.println("* 'Climb the _____'");
-                System.out.println("* 'Jump off of the _____'");
-                System.out.println("* 'Eat the _____'");
-                System.out.println("* 'Drink the _____'");
+                this.slowPrint("\nRemember, in order to nap, you must: ");
+                this.slowPrint("* have eaten");
+                this.slowPrint("* have drunk something");
+                this.slowPrint("* have a blanket to sleep on");
+                this.slowPrint("* be in direct sunlight\n");
+                this.slowPrint("\nTry these commands:");
+                this.slowPrint("* 'Go to the _____'");
+                this.slowPrint("* 'Climb the _____'");
+                this.slowPrint("* 'Jump off of the _____'");
+                this.slowPrint("* 'Eat the _____'");
+                this.slowPrint("* 'Drink the _____'");
                 continue;
             }
 
             //Check that the response is more than one word
             if(wordList.size()<2){
-                System.out.println("\nYour response should be more than one word. Try saying 'Go to' a room or an item.");
+                this.slowPrint("\nYour response should be more than one word. Try saying 'Go to' a room or an item.");
                 continue;
             }
 
@@ -440,8 +441,8 @@ public class Game {
                             locationAsRoom=this.turnNameToRoom(this.location);
 
                             //Print update 
-                            System.out.println("\nRight now, you are in "+locationAsRoom.getDescription()+locationAsRoom.lookAround());
-                            System.out.println("There are doors connecting to: ");
+                            this.slowPrint("\nRight now, you are in "+locationAsRoom.getDescription()+locationAsRoom.lookAround());
+                            this.slowPrint("There are doors connecting to: ");
                             //Print neighbors
                             this.printNeighbors(this.turnNameToRoom(this.location));
 
@@ -456,7 +457,7 @@ public class Game {
                             this.current=getTimeSeconds(); 
                             gameGoing=(this.current-start<300);
                             this.readyToNap=this.canNap();
-                            System.out.println("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room.");
+                            this.slowPrint("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room.");
                             continue;
                         }
                     }
@@ -464,7 +465,7 @@ public class Game {
                     else{
                         //if they are not climbed onto something 
                         if(Objects.isNull(this.climbedOn)){
-                            System.out.println("\nThere is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
+                            this.slowPrint("\nThere is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
                             this.printNeighbors(locationAsRoom);
 
                             //Reset current time & canNap (restarting while loop)
@@ -474,7 +475,7 @@ public class Game {
                             continue;
                         }
                         else{
-                            System.out.println("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room. Additionally, there is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
+                            this.slowPrint("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room. Additionally, there is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
                             this.printNeighbors(locationAsRoom);
                             //Reset current time & canNap (restarting while loop)
                             this.current=getTimeSeconds(); 
@@ -513,27 +514,27 @@ public class Game {
             
             //If the program has NOT parsed the response (even if it didn't work), it sends out a general error message
             if(this.success==false){
-                System.out.println("\nThat is not a valid command. Try these: ");
-                System.out.println("* 'Go to the _____'");
-                System.out.println("* 'Climb the _____'");
-                System.out.println("* 'Jump off of the _____'");
-                System.out.println("* 'Eat the _____'");
-                System.out.println("* 'Drink the _____'");
-                System.out.println("You can also say 'Look around' or 'Help'");
+                this.slowPrint("\nThat is not a valid command. Try these: ");
+                this.slowPrint("* 'Go to the _____'");
+                this.slowPrint("* 'Climb the _____'");
+                this.slowPrint("* 'Jump off of the _____'");
+                this.slowPrint("* 'Eat the _____'");
+                this.slowPrint("* 'Drink the _____'");
+                this.slowPrint("You can also say 'Look around' or 'Help'");
 
             }
         }
         
         if(this.canNap()){
-            System.out.println("\nSNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
-            System.out.println("GAME OVER.");
+            this.slowPrint("\nSNOOOOZE!!!! Yay! You have found something to eat, something to drink, a blanket, and a sunny spot and can now take a well-deserved nap.");
+            this.slowPrint("GAME OVER.");
         }
         if(!gameGoing){
-            System.out.println("The sun has set. The room is filled with pink light. You didn't nap, but nightfall is coming and you'll have a wonderful deep sleep.");
-            System.out.println("GAME OVER.");
+            this.slowPrint("The sun has set. The room is filled with pink light. You didn't nap, but nightfall is coming and you'll have a wonderful deep sleep.");
+            this.slowPrint("GAME OVER.");
         }
         if(this.stuckInBath){
-            System.out.println("GAME OVER.");
+            this.slowPrint("GAME OVER.");
         }
     }
     
