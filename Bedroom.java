@@ -30,8 +30,11 @@ public class Bedroom extends Room{
                 if(Objects.nonNull(this.game.getClimbedOn())){
                     //if they have climbed onto the bed
                     if(this.game.getClimbedOn().equals(this.returnItem("bed"))){
-                        System.out.println("\nYou are now holding the blanket.");
+                        this.game.changeHolding(this.returnItem("blanket"));
+                        System.out.println("\nYou are now holding the blanket. \nCurrent status:");
+                        this.game.printNapStatus();
                         this.returnItem("bed").showOptions();
+
                     }
                 }
                 //if they haven't climbed onto anything
