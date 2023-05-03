@@ -403,11 +403,12 @@ public class Game {
                 this.slowPrint("* have a blanket to sleep on");
                 this.slowPrint("* be in direct sunlight\n");
                 this.slowPrint("\nTry these commands:");
-                this.slowPrint("* 'Go to the _____'");
-                this.slowPrint("* 'Climb the _____'");
-                this.slowPrint("* 'Jump off of the _____'");
-                this.slowPrint("* 'Eat the _____'");
-                this.slowPrint("* 'Drink the _____'");
+                this.slowPrint("* [Look around]");
+                this.slowPrint("* [Go to the _____]");
+                this.slowPrint("* [Climb the _____]");
+                this.slowPrint("* [Jump off of the _____]");
+                this.slowPrint("* [Eat the _____]");
+                this.slowPrint("* [Drink the _____]");
                 continue;
             }
 
@@ -515,12 +516,13 @@ public class Game {
             //If the program has NOT parsed the response (even if it didn't work), it sends out a general error message
             if(this.success==false){
                 this.slowPrint("\nThat is not a valid command. Try these: ");
-                this.slowPrint("* 'Go to the _____'");
-                this.slowPrint("* 'Climb the _____'");
-                this.slowPrint("* 'Jump off of the _____'");
-                this.slowPrint("* 'Eat the _____'");
-                this.slowPrint("* 'Drink the _____'");
-                this.slowPrint("You can also say 'Look around' or 'Help'");
+                this.slowPrint("* [Look around]");
+                this.slowPrint("* [Go to the _____]");
+                this.slowPrint("* [Climb the _____]");
+                this.slowPrint("* [Jump off of the _____]");
+                this.slowPrint("* [Eat the _____]");
+                this.slowPrint("* [Drink the _____]");
+                this.slowPrint("* [Help]");
 
             }
         }
