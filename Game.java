@@ -132,7 +132,7 @@ public class Game {
           char c = toPrint.charAt(i);
           System.out.print(c);
           try {
-            TimeUnit.MILLISECONDS.sleep(15);
+            TimeUnit.MILLISECONDS.sleep(17);
           }
           catch (Exception e) {
           }
