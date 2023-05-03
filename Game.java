@@ -41,8 +41,8 @@ public class Game {
         //kitchen 
         Kitchen kitchen=new Kitchen("kitchen", "a black-and-white tiled clean kitchen. ",this);
         this.kitchen=kitchen;
-        Item table=new Item("table","A sturdy wooden table [table]", false,false,true,false,true, false,true);
-        Item milk=new Item("milk","A glass of milk [milk]",false,true,false,false,false,true,false);
+        Item table=new Item("table","A sturdy wooden table", false,false,true,false,true, false,true);
+        Item milk=new Item("milk","A glass of milk",false,true,false,false,false,true,false);
         table.addChild(milk);
         milk.addParent(table);
         this.kitchen.addItem(table);
@@ -51,8 +51,8 @@ public class Game {
         //garden
         Garden garden=new Garden("garden","a lovely enclosed garden space with lots of flowers and a light breeze. ",this);
         this.garden=garden;
-        Item pond=new Item("pond","A stone pond in the center filled with water [pond]",false, false, true, false, true, false, true);
-        Item fish=new Item("fish","Appetizing koi fish swimming lazily [fish]", true, false, false, false, false, true, false);
+        Item pond=new Item("pond","A stone pond in the center filled with water",false, false, true, false, true, false, true);
+        Item fish=new Item("fish","Appetizing koi fish swimming lazily", true, false, false, false, false, true, false);
         pond.addChild(fish);
         fish.addParent(pond);
         this.garden.addItem(pond);
@@ -62,12 +62,12 @@ public class Game {
         //bedroom
         Bedroom bedroom= new Bedroom("bedroom", "a spacious yet cozy bedroom. ",this);
         this.bedroom=bedroom;
-        Item bed=new Item("bed","A large bed with a blanket on top of it [bed]",false,false,true,false,true,false,true);
-        Item blanket=new Item("blanket","A cozy handmade afghan blanket [blanket]",false,false, false,true,false, true,false);
+        Item bed=new Item("bed","A large bed with a blanket on top of it",false,false,true,false,true,false,true);
+        Item blanket=new Item("blanket","A cozy handmade afghan blanket",false,false, false,true,false, true,false);
         this.blanket=blanket;
         bed.addChild(blanket);
         this.blanket.addParent(bed);
-        Item dresser=new Item("dresser","A handsome chestnut dresser filled with woolen sweaters [dresser]",false,false,true,false,true,false,false);
+        Item dresser=new Item("dresser","A handsome chestnut dresser filled with woolen sweaters",false,false,true,false,true,false,false);
         this.bedroom.addItem(bed);
         this.bedroom.addItem(blanket);
         this.bedroom.addItem(dresser);
@@ -75,8 +75,8 @@ public class Game {
         //parlor
         Parlor parlor=new Parlor("parlor", "a homey parlor room. ",this);
         this.parlor=parlor;
-        Item windowSeat=new Item("window seat","A cozy yet bare window seat drenched in sunlight [window seat]",false,false,true, false,true,false,false);
-        Item couch=new Item("couch","a plump green corduroy couch [couch]",false,false,true,false,true,false,false);
+        Item windowSeat=new Item("window seat","A cozy yet bare window seat drenched in sunlight",false,false,true, false,true,false,false);
+        Item couch=new Item("couch","a plump green corduroy couch",false,false,true,false,true,false,false);
         this.windowSeat=windowSeat;
         this.parlor.addItem(windowSeat);
         this.parlor.addItem(couch);
@@ -84,9 +84,9 @@ public class Game {
         //bathroom
         Bathroom bathroom= new Bathroom("bathroom", "a tiled and clean bathroom. ",this);
         this.bathroom=bathroom;
-        Item bathtub=new Item("bathtub","a large clawfoot bathtub [bathtub]",false,false,true,false,false,false,false);
-        Item toilet=new Item("toilet","a toilet with water inside [toilet]",false,false,true,false,true,false,true);
-        Item water=new Item("water", "cool, clean refreshing water in the toilet [water]",false,true,false,false,false,true,false);
+        Item bathtub=new Item("bathtub","a large clawfoot bathtub",false,false,true,false,false,false,false);
+        Item toilet=new Item("toilet","a toilet with water inside",false,false,true,false,true,false,true);
+        Item water=new Item("water", "cool, clean refreshing water in the toilet",false,true,false,false,false,true,false);
         toilet.addChild(water);
         water.addParent(toilet);
         this.bathroom.addItem(bathtub);
@@ -208,7 +208,7 @@ public class Game {
     //print neighbors
     public void printNeighbors(Room current){
         for (Room r : this.getNeighbors(current)){
-            this.slowPrint("the "+r.getName());
+            this.slowPrint("the "+r.getName()+" [go to the "+r.getName()+"]");
         }    
     }
 
@@ -298,8 +298,8 @@ public class Game {
 
     public void play(){
 
-        System.out.println("\n"+"------------------------------------------------------------------------------------------");
-        this.slowPrint("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...");
+        System.out.println("\n"+"----------------------------------------------------------------------------------------------------------------------------------");
+        this.slowPrint("Welcome! In this game, you are a cat in a house searching for the best place to take a nap. In order to nap, you must...\n");
         this.slowPrint("* have eaten");
         this.slowPrint("* have drunk something");
         this.slowPrint("* have a blanket to sleep on");
@@ -307,7 +307,7 @@ public class Game {
         this.slowPrint("But be careful! Time is running out-- the sun is setting, and you have to get a good nap in before the sunset\n\n");
         this.slowPrint("Right now, it is 12 pm. The sun is going to set at 7 pm. Cat time is different than human time (nine lives and all), so you will get warnings throughout the game of the time.");
         this.slowPrint("If you fail to nap before sunset, you will lose the game :(");
-        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         
 
         this.slowPrint("\nIn this house, there is: ");
@@ -315,8 +315,22 @@ public class Game {
         this.slowPrint("* A garden, "+this.garden.getDescription());
         this.slowPrint("* A parlor, "+this.parlor.getDescription());
         this.slowPrint("* A bedroom, "+this.bedroom.getDescription());
-        this.slowPrint("* A bathroom, "+this.bathroom.getDescription());
-        this.slowPrint("Get started by saying 'Go to the ____' (a room or object of your choosing)");
+        this.slowPrint("* A bathroom, "+this.bathroom.getDescription()+"\n");
+
+        System.out.println("------------------------");
+        System.out.println("|          | bathroom  |");
+        System.out.println("|  parlor  |--------   |");
+        System.out.println("|                      |");
+        System.out.println("|-------   |           |");
+        System.out.println("|          |  bedroom  |");
+        System.out.println("| kitchen              |");
+        System.out.println("|          |           |");
+        System.out.println("|----------------------|");
+        System.out.println("");
+        System.out.println("    garden   ");
+    
+
+
         this.slowPrint("\nRight now, you are in the kitchen. "+this.kitchen.lookAround());
         this.slowPrint("There are doors connecting to: ");
         this.printNeighbors(this.turnNameToRoom(this.location));
@@ -466,14 +480,26 @@ public class Game {
                     else{
                         //if they are not climbed onto something 
                         if(Objects.isNull(this.climbedOn)){
-                            this.slowPrint("\nThere is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
-                            this.printNeighbors(locationAsRoom);
+                            //if the location is already the location
+                            if(this.location.equals(word4)){
+                                this.slowPrint("\nYou are already at the "+word4+".");
 
-                            //Reset current time & canNap (restarting while loop)
-                            this.current=getTimeSeconds(); 
-                            gameGoing=(this.current-start<300);
-                            this.readyToNap=this.canNap();
-                            continue;
+                                //Reset current time & canNap (restarting while loop)
+                                this.current=getTimeSeconds(); 
+                                gameGoing=(this.current-start<300);
+                                this.readyToNap=this.canNap();
+                                continue;
+                            }
+                            else{
+                                this.slowPrint("\nThere is not a door from the "+this.location+" to the "+ word4+". The "+this.location+" connects to: ");
+                                this.printNeighbors(locationAsRoom);
+
+                                //Reset current time & canNap (restarting while loop)
+                                this.current=getTimeSeconds(); 
+                                gameGoing=(this.current-start<300);
+                                this.readyToNap=this.canNap();
+                                continue;
+                            }
                         }
                         else{
                             this.slowPrint("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room. Additionally, there is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
@@ -532,11 +558,11 @@ public class Game {
             this.slowPrint("GAME OVER.");
         }
         if(!gameGoing){
-            this.slowPrint("The sun has set. The room is filled with pink light. You didn't nap, but nightfall is coming and you'll have a wonderful deep sleep.");
+            this.slowPrint("\nThe sun has set. The room is filled with pink light. You didn't nap, but nightfall is coming and you'll have a wonderful deep sleep.");
             this.slowPrint("GAME OVER.");
         }
         if(this.stuckInBath){
-            this.slowPrint("GAME OVER.");
+            this.slowPrint("\nGAME OVER.");
         }
     }
     

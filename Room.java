@@ -37,7 +37,7 @@ public class Room {
             }else{
                 toReturn+=items.get(i).description;
             }
-            toReturn+=" [go to "+items.get(i).getName()+"]\n";
+            toReturn+=" [go to the "+items.get(i).getName()+"]\n";
         }
         return toReturn+"\n";
     }
