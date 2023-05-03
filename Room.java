@@ -33,12 +33,13 @@ public class Room {
         String toReturn="In this room, there is: \n";
         for (int i=0; i<items.size(); i++){
             if (items.get(i).hasParent()){
-                toReturn+=items.get(i).description+" on top of the "+items.get(i).getParent().getName()+"\n";
+                toReturn+=items.get(i).description+" on top of the "+items.get(i).getParent().getName();
             }else{
-                toReturn+=items.get(i).description+"\n";
+                toReturn+=items.get(i).description;
             }
+            toReturn+=" [go to "+items.get(i).getName()+"]\n";
         }
-        return toReturn;
+        return toReturn+"\n";
     }
 
     public boolean isInRoom(Item i){
