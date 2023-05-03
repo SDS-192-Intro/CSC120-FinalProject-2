@@ -420,32 +420,55 @@ public class Game {
 
                     //If the fourth word IS a neighbor to the current room 
                     if(neighbors.contains(this.turnNameToRoom(word4))){
-                        //Change the location to the fourth word in the response
-                        this.location=word4;
-                        locationAsRoom=this.turnNameToRoom(this.location);
+                        //if they are not climbed onto something 
+                        if(Objects.isNull(this.climbedOn)){
+                            //Change the location to the fourth word in the response
+                            this.location=word4;
+                            locationAsRoom=this.turnNameToRoom(this.location);
 
-                        //Print update 
-                        System.out.println("\nRight now, you are in "+locationAsRoom.getDescription()+locationAsRoom.lookAround());
-                        System.out.println("There are doors connecting to: ");
-                        //Print neighbors
-                        this.printNeighbors(this.turnNameToRoom(this.location));
+                            //Print update 
+                            System.out.println("\nRight now, you are in "+locationAsRoom.getDescription()+locationAsRoom.lookAround());
+                            System.out.println("There are doors connecting to: ");
+                            //Print neighbors
+                            this.printNeighbors(this.turnNameToRoom(this.location));
 
-                        //Reset current time & canNap (restarting while loop)
-                        this.current=getTimeSeconds(); 
-                        gameGoing=(this.current-start<300);
-                        this.readyToNap=this.canNap();
-                        continue;
+                            //Reset current time & canNap (restarting while loop)
+                            this.current=getTimeSeconds(); 
+                            gameGoing=(this.current-start<300);
+                            this.readyToNap=this.canNap();
+                            continue;
+                        }
+                        else{
+                            //Reset current time & canNap (restarting while loop)
+                            this.current=getTimeSeconds(); 
+                            gameGoing=(this.current-start<300);
+                            this.readyToNap=this.canNap();
+                            System.out.println("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room.");
+                            continue;
+                        }
                     }
                 //If the fourth word is NOT a neighbor 
                     else{
-                        System.out.println("There is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
-                        this.printNeighbors(locationAsRoom);
+                        //if they are not climbed onto something 
+                        if(Objects.isNull(this.climbedOn)){
+                            System.out.println("\nThere is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
+                            this.printNeighbors(locationAsRoom);
 
-                        //Reset current time & canNap (restarting while loop)
-                        this.current=getTimeSeconds(); 
-                        gameGoing=(this.current-start<300);
-                        this.readyToNap=this.canNap();
-                        continue;
+                            //Reset current time & canNap (restarting while loop)
+                            this.current=getTimeSeconds(); 
+                            gameGoing=(this.current-start<300);
+                            this.readyToNap=this.canNap();
+                            continue;
+                        }
+                        else{
+                            System.out.println("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room. Additionally, there is not a door from the "+this.location+" to the "+ word3+". The "+this.location+" connects to: ");
+                            this.printNeighbors(locationAsRoom);
+                            //Reset current time & canNap (restarting while loop)
+                            this.current=getTimeSeconds(); 
+                            gameGoing=(this.current-start<300);
+                            this.readyToNap=this.canNap();
+                            continue;
+                        }
                    }
                }
             } catch (Exception e){

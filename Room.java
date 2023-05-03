@@ -90,11 +90,6 @@ public class Room {
             String word3=wordList.get(2);
             String word4=wordList.get(3);
 
-            //Check if word4 is window as to not throw an error 
-            if(word4.equals("window")){
-                throw new RuntimeException();
-            }
-
             //word1 should be "Go" or "go", word2 should be "to"
             //word3 should be "the", and word 4 should be the *item*
 
@@ -182,7 +177,7 @@ public class Room {
                             //Check whether we have already climbed the item
                             if(this.game.getClimbedOn().equals(item)){
                                 this.game.changeSuccess(true);
-                                System.out.println("You have already climbed onto the "+word3+".");
+                                System.out.println("\nYou have already climbed onto the "+word3+".");
                             }
                         }
                         //Then you are allowed to climb the item 
@@ -239,7 +234,7 @@ public class Room {
                                 //Check whether we have already climbed the item
                                 if(this.game.getClimbedOn().equals(item)){
                                     this.game.changeSuccess(true);
-                                    System.out.println("You have already climbed onto the "+this.getName()+".");
+                                    System.out.println("\nYou have already climbed onto the "+this.getName()+".");
                                 }
                             }
                             //Then you are allowed to climb the item 
@@ -286,7 +281,7 @@ public class Room {
                  //If you have NOT climbed on to the item 
                 if(Objects.isNull(this.game.getClimbedOn())){
                     this.game.changeSuccess(true);
-                    System.out.println("\nYou need to have climbed onto the "+word5+" in order to jump off of it. Try [climb the "+word5+"].");
+                    System.out.println("\nYou need to have climbed onto the "+item.getName()+" in order to jump off of it. Try [climb the "+item.getName()+"].");
                 }
 
                 //If you have climbed onto the item
@@ -299,8 +294,8 @@ public class Room {
                             this.game.changeSuccess(true);
                             //Change climbedOn attribute in the game 
                             this.game.changeClimbedOn(null);
-                            System.out.println("\nYou have jumped off of the "+word5+".");
-                            System.out.println("You are now standing next to the "+word5+" in the "+this.getName()+".\n");
+                            System.out.println("\nYou have jumped off of the "+item.getName()+".");
+                            System.out.println("You are now standing next to the "+item.getName()+" in the "+item.getName()+".\n");
                             System.out.println(this.lookAround()+"\nThere are doors connecting to: \n");
                             this.game.printNeighbors(this);
                             //throw runtime exception to avoid being caught in the final conditional
@@ -313,8 +308,8 @@ public class Room {
                                 this.game.changeSuccess(true);
                                 //Change climbedOn attribute in the game 
                                 this.game.changeClimbedOn(null);
-                                System.out.println("\nYou have jumped off of the "+this.getName()+".");
-                                System.out.println("You are now standing next to the "+this.getName()+" in the "+this.getName()+".");
+                                System.out.println("\nYou have jumped off of the "+item.getName()+".");
+                                System.out.println("You are now standing next to the "+item.getName()+" in the "+item.getName()+".");
                                 System.out.println(this.lookAround()+"\nThere are doors connecting to: \n");
                                 this.game.printNeighbors(this);
                                 //throw runtime exception to avoid being caught in the final conditional
@@ -373,7 +368,7 @@ public class Room {
                 }
                 //If we have already eaten
                 else{
-                    System.out.println("You have already eaten the "+word3+".\n");
+                    System.out.println("\nYou have already eaten the "+word3+".\n");
                     this.game.printNapStatus();
                 }
             }
