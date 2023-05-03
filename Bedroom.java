@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Bedroom extends Room{
     
@@ -18,15 +19,28 @@ public class Bedroom extends Room{
         //turn second word into an item
         Item item2=this.returnItem(word2);
 
-        if (word1.equals("take")||word1.equals("Take")){
-            //if you have climbed on top of the bed 
-            //if(Game.climbedOn=bed){}
-                //if the item you're trying to take is the blanket 
-                if (item2.equals(items.get(1))){
-                    System.out.println("You are now holding the blanket.");
-                    this.game.changeHolding(items.get(1));
+        //"Take the blanket"
+        try{
+            String word3=wordList.get(2);
+
+            Boolean word1IsTake=word1.equals("take")||word1.equals("Take");
+            //If they said "take the blanket"
+            if (word1IsTake && word2.equals("the")&& word3.equals("blanket")){
+                //if they have climbed onto anything 
+                if(Objects.nonNull(this.game.getClimbedOn())){
+                    //if they have climbed onto the bed
+                    if(this.game.getClimbedOn().equals(this.returnItem("bed"))){
+                        System.out.println("\nYou are now holding the blanket.");
+                        this.returnItem("bed").showOptions();
+                    }
                 }
-        }
+                //if they haven't climbed onto anything
+                else{
+                    System.out.println("\nYou need to climb on to the bed before taking the blanket.");
+                }
+            }
+        } catch(Exception e){}
+    
 
     }
 }
