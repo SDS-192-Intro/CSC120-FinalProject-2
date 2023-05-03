@@ -26,7 +26,7 @@ public class Parlor extends Room{
             Boolean isGo=word1.equals("go")||word1.equals("Go");
             if(isGo&&word2.equals("to")&&word3.equals("the")&&word4.equals("window")&& word5.equals("seat")){
                 this.game.changeSuccess(true);
-                System.out.println("\nYou are at the window seat");
+                this.game.slowPrint("\nYou are at the window seat");
                 this.addressing=this.returnItem("window seat");
                 this.returnItem("window seat").showOptions();
                 //send back to game class (don't go through methods in Room)
@@ -43,14 +43,14 @@ public class Parlor extends Room{
                 //if you're not addressing any item
                 if (Objects.isNull(this.addressing)){ 
                     this.game.changeSuccess(true);
-                    System.out.println("\nYou must be at the window seat in order to climb it. Try [go to the window seat].");
+                    this.game.slowPrint("\nYou must be at the window seat in order to climb it. Try [go to the window seat].");
                     //send back to game class (don't go through methods in Room)
                     b=true;   
                 }
                 if(Objects.nonNull(this.addressing)){
                     if(!this.addressing.equals(this.returnItem("window seat"))){
                         this.game.changeSuccess(true);
-                        System.out.println("\nYou must be at the window seat in order to climb it. Try [go to the window seat].");   
+                        this.game.slowPrint("\nYou must be at the window seat in order to climb it. Try [go to the window seat].");   
                        //send back to game class (don't go through methods in Room)
                         b=true;
                     }
@@ -60,15 +60,15 @@ public class Parlor extends Room{
                         //If they haven't won the game yet, give them pointers 
                         if(!this.game.canNap()){
                             this.game.changeSuccess(true);
-                            System.out.println("\nYou have climbed onto the window seat BUT... ");
+                            this.game.slowPrint("\nYou have climbed onto the window seat BUT... ");
                             this.game.printNapStatus();
-                            System.out.println("\nTry [jump off of the window seat]");
+                            this.game.slowPrint("\nTry [jump off of the window seat]");
                             //send back to game class (don't go through methods in Room)
                             b=true;
                         }
                         //If they have won the game
                         else{
-                            System.out.println("\nYou have climbed onto the window seat AND...");
+                            this.game.slowPrint("\nYou have climbed onto the window seat AND...");
                             this.game.printNapStatus();
                             //send back to game class (don't go through methods in Room)
                             b=true;
@@ -100,9 +100,9 @@ public class Parlor extends Room{
                             this.game.changeSuccess(true);
                             //Change climbedOn attribute in the game 
                             this.game.changeClimbedOn(null);
-                            System.out.println("\nYou have jumped off of the "+item.getName()+".");
-                            System.out.println("You are now standing next to the "+item.getName()+" in the "+this.getName()+".\n");
-                            System.out.println(this.lookAround()+"\nThere are doors connecting to: \n");
+                            this.game.slowPrint("\nYou have jumped off of the "+item.getName()+".");
+                            this.game.slowPrint("You are now standing next to the "+item.getName()+" in the "+this.getName()+".\n");
+                            this.game.slowPrint(this.lookAround()+"\nThere are doors connecting to: \n");
                             this.game.printNeighbors(this);
                             //send back to game class (don't go through methods in Room)
                             b=true;
@@ -116,9 +116,9 @@ public class Parlor extends Room{
                                 this.game.changeSuccess(true);
                                 //Change climbedOn attribute in the game 
                                 this.game.changeClimbedOn(null);
-                                System.out.println("\nYou have jumped off of the "+item.getName()+".");
-                                System.out.println("You are now standing next to the "+item.getName()+" in the "+this.getName()+".");
-                                System.out.println(this.lookAround()+"\nThere are doors connecting to: \n");
+                                this.game.slowPrint("\nYou have jumped off of the "+item.getName()+".");
+                                this.game.slowPrint("You are now standing next to the "+item.getName()+" in the "+this.getName()+".");
+                                this.game.slowPrint(this.lookAround()+"\nThere are doors connecting to: \n");
                                 this.game.printNeighbors(this);
                                 //send back to game class (don't go through methods in Room)
                                 b=true;
@@ -129,7 +129,7 @@ public class Parlor extends Room{
                         //If you are NOT addressing the item
                         else{
                             this.game.changeSuccess(true);
-                            System.out.println("\nIn order to jump off, you must first be *at* the "+item.getName()+". Try [go to the "+item.getName()+"], and then [jump off of the "+item.getName()+"].");
+                            this.game.slowPrint("\nIn order to jump off, you must first be *at* the "+item.getName()+". Try [go to the "+item.getName()+"], and then [jump off of the "+item.getName()+"].");
                             //send back to game class (don't go through methods in Room)
                             b=true;
                         }
