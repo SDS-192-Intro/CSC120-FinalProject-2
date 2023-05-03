@@ -60,7 +60,7 @@ public class Parlor extends Room{
                         //If they haven't won the game yet, give them pointers 
                         if(!this.game.canNap()){
                             this.game.changeSuccess(true);
-                            this.game.slowPrint("\nYou have climbed onto the window seat BUT... ");
+                            this.game.slowPrint("\nYou have climbed onto the window seat... ");
                             this.game.printNapStatus();
                             this.game.slowPrint("\nTry [jump off of the window seat]");
                             //send back to game class (don't go through methods in Room)
