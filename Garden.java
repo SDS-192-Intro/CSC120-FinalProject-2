@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Garden extends Room {
 
     String name;
@@ -6,5 +8,11 @@ public class Garden extends Room {
     public Garden(String name, String description,Game game){
         super(name, description,game);
     }
-    //make an exception for climb 
+    
+    //Override for pond (change wording)
+    public void conversation(ArrayList<String> wordList){
+        try{
+        } catch (Exception e){}
+    }
+
 }

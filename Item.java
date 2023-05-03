@@ -36,19 +36,19 @@ public class Item {
     public void showOptions(){
         String toPrint= "\nOptions for: "+this.name+"\n";
         if (this.isEdible){
-            toPrint+="You can eat the "+this.name+"\n";
+            toPrint+="You can [eat the "+this.name+"]\n";
         }
         if (this.isDrinkable){
-            toPrint+="You can drink the "+this.name+"\n";
+            toPrint+="You can [drink the "+this.name+"]\n";
         } 
         if (this.isClimbable){
-            toPrint+="You can climb the "+this.name+"\n";
+            toPrint+="You can [climb the "+this.name+"]\n";
         }
         if (this.isTakeable){
-            toPrint+="You can take the "+this.name+"\n";
+            toPrint+="You can [take the "+this.name+"]\n";
         }
         if (this.isJumpOffable){
-            toPrint+="You can jump off of the "+this.name+"\n";
+            toPrint+="You can [jump off of the "+this.name+"]\n";
         }
         System.out.println(toPrint);
     }

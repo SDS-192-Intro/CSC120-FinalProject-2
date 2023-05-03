@@ -50,7 +50,7 @@ public class Game {
         //garden
         Garden garden=new Garden("garden","a lovely enclosed garden space with lots of flowers and a light breeze. ",this);
         this.garden=garden;
-        Item pond=new Item("pond","A stone pond in the center filled with water [pond]",false, false, false, false, false, false, true);
+        Item pond=new Item("pond","A stone pond in the center filled with water [pond]",false, false, true, false, true, false, true);
         Item fish=new Item("fish","Appetizing koi fish swimming lazily [fish]", true, false, false, false, false, true, false);
         pond.addChild(fish);
         fish.addParent(pond);
@@ -72,7 +72,7 @@ public class Game {
         this.bedroom.addItem(dresser);
 
         //parlor
-        Parlor parlor=new Parlor("Parlor", "a homey parlor room. ",this);
+        Parlor parlor=new Parlor("parlor", "a homey parlor room. ",this);
         this.parlor=parlor;
         Item windowSeat=new Item("window seat","A cozy yet bare window seat drenched in sunlight [window seat]",false,false,true, false,true,false,false);
         Item couch=new Item("couch","a plump green corduroy couch [couch]",false,false,true,false,true,false,false);
@@ -194,9 +194,7 @@ public class Game {
     //print neighbors
     public void printNeighbors(Room current){
         for (Room r : this.getNeighbors(current)){
-            String room=r.getName();
-            room=room.substring(0, 1).toUpperCase() + room.substring(1);
-            System.out.println("The "+room);
+            System.out.println("the "+r.getName());
         }    
     }
 
@@ -215,13 +213,13 @@ public class Game {
         if(name.equals("bathroom")||name.equals("Bathroom")){
             return this.bathroom;
         }
-        if(name.equals("bedroom")){
+        if(name.equals("bedroom")||name.equals("Bedroom")){
             return this.bedroom;
         }
-        if(name.equals("garden")){
+        if(name.equals("garden")||name.equals("Garden")){
             return this.garden;
         }
-        if (name.equals("parlor")){
+        if (name.equals("parlor")||name.equals("Parlor")){
             return this.parlor;
         }
         else{
@@ -241,6 +239,11 @@ public class Game {
     public Boolean getHaveDrunk(){
         return this.haveDrunk;
     }
+
+    public Boolean getHaveEaten(){
+        return this.haveEaten;
+    }
+
     public void changeClimbedOn(Item i){
         this.climbedOn=i;
     }
