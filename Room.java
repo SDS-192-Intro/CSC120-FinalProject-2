@@ -30,13 +30,14 @@ public class Room {
     }
 
     public String lookAround(){
-        String toReturn="In this room, there is: \n";
+        String toReturn="\nIn this room, there is: \n";
         for (int i=0; i<items.size(); i++){
             if (items.get(i).hasParent()){
                 toReturn+=items.get(i).description+" on top of the "+items.get(i).getParent().getName();
             }else{
                 toReturn+=items.get(i).description;
             }
+            this.game.changeSuccess(true);
             toReturn+=" [go to the "+items.get(i).getName()+"]\n";
         }
         return toReturn+"\n";
