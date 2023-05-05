@@ -185,7 +185,7 @@ public class Room {
                         //Then you are allowed to climb the item 
                         else{
                             this.game.changeSuccess(true);
-                            this.game.slowPrint("\nYou have climbed on "+word3+".");
+                            this.game.slowPrint("\nYou have climbed on the "+word3+".");
                             this.game.changeClimbedOn(item);
                             //if the item has a child (ex. milk on table), then show options for child
                             if(item.hasChild()){
@@ -242,7 +242,7 @@ public class Room {
                             //Then you are allowed to climb the item 
                             else{
                                 this.game.changeSuccess(true);
-                                this.game.slowPrint("\nYou have climbed on "+this.getName()+".");
+                                this.game.slowPrint("\nYou have climbed on the "+this.getName()+".");
                                 this.game.changeClimbedOn(item);
                                 //if the item has a child (ex. milk on table), then show options for child
                                 if(item.hasChild()){
@@ -355,6 +355,7 @@ public class Room {
                     if(this.addressing.equals(item)){
                         //If the item is drinkable 
                         if(item.isEdible()){
+                            this.game.changeSuccess(true);
                             this.game.changeHaveEaten(true);
                             this.game.slowPrint("\nGulllp!! Delicious");
                             this.game.slowPrint("\nCurrent status: ");
