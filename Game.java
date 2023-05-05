@@ -33,6 +33,7 @@ public class Game {
     Boolean readyToNap;
     Boolean stuckInBath;
     Boolean success;
+    Integer start;
 
 
     public Game(){
@@ -125,6 +126,9 @@ public class Game {
         //start the success boolean
         this.success=false;
 
+        //get start time of game
+        this.start=getTimeSeconds();
+
     }
 
     public void slowPrint(String toPrint) {
@@ -167,6 +171,8 @@ public class Game {
     }
     
     public void printNapStatus(){  
+        String currentTime=this.timeConvert(this.current=getTimeSeconds()-this.start);
+        System.out.println("\nIt is currently: "+currentTime+" PM. Remember, you need to take a nap before 7:00 PM");
         if(this.haveEaten){
             this.slowPrint("* You have eaten.");
         } else{
@@ -296,24 +302,30 @@ public class Game {
         return time;
     }
 
-    public String timeConvert(Integer i){
+    public String timeConvert(int i){
         //pass in the time elapsed from the start of the game in seconds 
         //the total game is 300 sec in human time, 7 hours in cat time (7*60*60=25,200 sec)
         //convert to cat time 
-        Integer sec=i*(25200/300);
+        int sec=i*(25200/300);
+        System.out.println("this is the number of sec: "+sec);
         //Get the total hours passed
-        double num=60*60;
-        double hour=sec/num;
+        int num=60*60;
+        int hour=sec/num;
+        System.out.println("this is the number of hoours: "+sec);
         //Get the leftover number of minutes 
-        double min=sec/60;
+        int min=sec/60;
+        System.out.println("this is the number of min: "+sec);
         //Initialize leftover min
-        double leftoverMin=0;
+        int leftoverMin=0;
         //Find the leftover amount of minutes 
         for (int j = 0; j<10; j++) {
             //if we have overshot
-            if(j*60<min){
-                //then do the previous one 
-                leftoverMin=min*(j-1);
+            if(j*60>min){
+                //then do the previous one
+                System.out.println("this is the j: "+j);
+                leftoverMin=min-(j-1)*60;
+                System.out.println("this is the number of leftover min: "+leftoverMin);
+                break;
             }
             //if it's still under, continue
             else{
@@ -373,12 +385,10 @@ public class Game {
 
         in=new Scanner(System.in);
 
-        //get start time of game
-        Integer start=getTimeSeconds();
         //initialize 
         this.current=getTimeSeconds(); 
         //create Boolean for end of game 
-        Boolean gameGoing=(start-this.current<300);
+        Boolean gameGoing=(this.start-this.current<300);
 
         while(gameGoing && !this.readyToNap && !this.stuckInBath){
             //reset success
@@ -498,14 +508,14 @@ public class Game {
 
                             //Reset current time & canNap (restarting while loop)
                             this.current=getTimeSeconds(); 
-                            gameGoing=(this.current-start<300);
+                            gameGoing=(this.current-this.start<300);
                             this.readyToNap=this.canNap();
                             continue;
                         }
                         else{
                             //Reset current time & canNap (restarting while loop)
                             this.current=getTimeSeconds(); 
-                            gameGoing=(this.current-start<300);
+                            gameGoing=(this.current-this.start<300);
                             this.readyToNap=this.canNap();
                             this.slowPrint("\nYou need to [jump off of the "+this.climbedOn.getName()+"] before you can leave the room.");
                             continue;
@@ -521,7 +531,7 @@ public class Game {
 
                                 //Reset current time & canNap (restarting while loop)
                                 this.current=getTimeSeconds(); 
-                                gameGoing=(this.current-start<300);
+                                gameGoing=(this.current-this.start<300);
                                 this.readyToNap=this.canNap();
                                 continue;
                             }
@@ -531,7 +541,7 @@ public class Game {
 
                                 //Reset current time & canNap (restarting while loop)
                                 this.current=getTimeSeconds(); 
-                                gameGoing=(this.current-start<300);
+                                gameGoing=(this.current-this.start<300);
                                 this.readyToNap=this.canNap();
                                 continue;
                             }
@@ -541,7 +551,7 @@ public class Game {
                             this.printNeighbors(locationAsRoom);
                             //Reset current time & canNap (restarting while loop)
                             this.current=getTimeSeconds(); 
-                            gameGoing=(this.current-start<300);
+                            gameGoing=(this.current-this.start<300);
                             this.readyToNap=this.canNap();
                             continue;
                         }
@@ -570,7 +580,7 @@ public class Game {
 
             //reset current time & boolean
             this.current=getTimeSeconds();
-            gameGoing=(this.current-start<300);
+            gameGoing=(this.current-this.start<300);
             //call canNap to update situation
             this.readyToNap=this.canNap();
             
