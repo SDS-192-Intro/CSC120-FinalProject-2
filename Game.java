@@ -348,6 +348,8 @@ public class Game {
         Boolean gameGoing=(start-this.current<300);
 
         while(gameGoing && !this.readyToNap && !this.stuckInBath){
+            //reset success
+            this.success=false;
 
             // // TIMER SECTION 
             // Timer timer=new Timer();
