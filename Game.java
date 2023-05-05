@@ -296,6 +296,39 @@ public class Game {
         return time;
     }
 
+    public String timeConvert(Integer i){
+        //pass in the time elapsed from the start of the game in seconds 
+        //the total game is 300 sec in human time, 7 hours in cat time (7*60*60=25,200 sec)
+        //convert to cat time 
+        Integer sec=i*(25200/300);
+        //Get the total hours passed
+        double num=60*60;
+        double hour=sec/num;
+        //Get the leftover number of minutes 
+        double min=sec/60;
+        //Initialize leftover min
+        double leftoverMin=0;
+        //Find the leftover amount of minutes 
+        for (int j = 0; j<10; j++) {
+            //if we have overshot
+            if(j*60<min){
+                //then do the previous one 
+                leftoverMin=min*(j-1);
+            }
+            //if it's still under, continue
+            else{
+                continue;
+            }
+          }
+        //If the leftover min is less than 10 
+        if(leftoverMin<10){
+            return hour+":"+"0"+leftoverMin;
+        }
+        else{
+            return hour+":"+leftoverMin;
+        }
+
+    }
     public void play(){
 
         System.out.println("\n"+"----------------------------------------------------------------------------------------------------------------------------------");
