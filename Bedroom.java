@@ -1,15 +1,22 @@
 import java.util.ArrayList;
 import java.util.Objects;
 
+/*
+ * Child class of Room
+ */
 public class Bedroom extends Room{
     
     String name;
     String description;
 
+    /*
+     * Bedroom constructor
+     */
     public Bedroom(String name, String description,Game game){
         super(name, description,game);
     }
 
+    /* Extends conversation in order to add blanket capabilities */
     public void conversation(ArrayList<String> wordList){
         //inherit from Room
         super.conversation(wordList);
@@ -30,6 +37,7 @@ public class Bedroom extends Room{
                 if(Objects.nonNull(this.game.getClimbedOn())){
                     //if they have climbed onto the bed
                     if(this.game.getClimbedOn().equals(this.returnItem("bed"))){
+                        this.game.changeSuccess(true);
                         this.game.changeHolding(this.returnItem("blanket"));
                         this.game.slowPrint("\nYou are now holding the blanket. \nCurrent status:");
                         this.game.printNapStatus();
@@ -39,6 +47,7 @@ public class Bedroom extends Room{
                 }
                 //if they haven't climbed onto anything
                 else{
+                    this.game.changeSuccess(true);
                     this.game.slowPrint("\nYou need to climb on to the bed before taking the blanket.");
                 }
             }
