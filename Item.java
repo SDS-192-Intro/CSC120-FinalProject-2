@@ -1,3 +1,6 @@
+/* 
+ * Item class 
+ */
 public class Item {
     
     String name;
@@ -12,7 +15,9 @@ public class Item {
     boolean hasChild;
     Item child; 
 
-    //constructor
+    /*
+     * Item constructor 
+     */
     public Item(String name, String description, boolean isEdible, boolean isDrinkable, boolean isClimbable, boolean isTakeable, boolean isJumpOffable, boolean hasParent, boolean hasChild){
         this.name=name;
         this.description=description;
@@ -32,7 +37,9 @@ public class Item {
 
     }
 
-    //show options method 
+    /*
+     * Method to show options available for an item 
+     */
     public void showOptions(){
         String toPrint= "\nOptions for: "+this.name+"\n";
         if (this.isEdible){
@@ -53,75 +60,87 @@ public class Item {
         System.out.println(toPrint);
     }
 
+    /*
+     * Getter for item name 
+     */
     public String getName(){
         return this.name;
     }
 
+    /*
+     * Getter for item description
+     */
     public String getDescription(){
         return this.description;
     }
 
+    /*
+     * Getter for item isClimbable 
+     */
     public Boolean isClimbable(){
-        if(this.isClimbable){
-            return true;
-        }else{
-            return false;
-        }
+        return this.isClimbable;
     }
 
+    /*
+     * Getter for item isEdible 
+     */
     public Boolean isEdible(){
-        if(this.isEdible){
-            return true;
-        }else{
-            return false;
-        }
+        return this.isEdible;
     }
 
+    /* 
+     * Getter for item isDrinkable 
+     */
     public Boolean isDrinkable(){
-        if(this.isDrinkable){
-            return true;
-        }else{
-            return false;
-        }
+        return this.isDrinkable;
     }
     
+    /*
+     * Getter for isJumpOffAble
+     */
     public Boolean isJumpOffAble(){
-        if(this.isJumpOffable){
-            return true;
-        }else{
-            return false;
-        }
+        return this.isJumpOffable;
     }
 
+    /*
+     * Setter for this.parent
+     */
     public void addParent(Item i){
         this.parent=i;
     }
 
+    /*
+     * Getter for hasParent
+     */
     public boolean hasParent(){
-        if (this.hasParent){
-            return true;
-        }else{
-            return false;
-        }
+        return this.hasParent;
     }
 
+    /*
+     * Getter for parent 
+     */
     public Item getParent(){
         //add error testing 
         return this.parent;
     }
 
+    /*
+     * Setter for child 
+     */
     public void addChild(Item i){
         this.child=i;
     }
 
+    /* 
+     * Getter for hasChild
+     */
     public boolean hasChild(){
-        if(this.hasChild){
-            return true;
-        }else{
-            return false;
-        }
+        return this.hasChild;
     }
 
+    /*
+     * Getter for child
+     */
     public Item getChild(){
         return this.child;
     }
