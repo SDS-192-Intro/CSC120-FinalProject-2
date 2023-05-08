@@ -8,6 +8,10 @@
  - `cheatsheet.md`
  - Completed `rubric.md`
   
+## Design Justification 
+I decided to have a game class, a main class (that called the game class so I wouldn't have to have a huge main in game), a Room class, various rooms that inherited from the room, and an item class. I considered having a cat class but thought it would be easier to keep the information about location in the game class so I would have to attach a cat to the game and then say this.cat.location. 
+
+
 ## Additional Reflection Questions
  - What was your **overall approach** to tackling this project?
  - What **new thing(s)** did you learn / figure out in completing this project?
