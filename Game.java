@@ -11,7 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
-
+/*
+ * Class that keeps track of the cat's status, runs Scanner, and sends input to different room classes 
+ */
 public class Game {
 
     String location;
@@ -36,6 +38,9 @@ public class Game {
     Integer start;
 
 
+    /*
+     * Constructor for the game: constructs each room, items within the room, organizes the rooms into a Guava map, and sets up game attributes 
+     */
     public Game(){
         //Construct rooms
 
@@ -131,6 +136,10 @@ public class Game {
 
     }
 
+    /*
+     * Method to print out strings with a delay in between each character 
+     * @param: String toPrint
+     */
     public void slowPrint(String toPrint) {
         for (int i = 0; i<toPrint.length(); i++) {
           char c = toPrint.charAt(i);
@@ -144,7 +153,10 @@ public class Game {
         System.out.println("");
     }
 
-    //method to see if cat can nap
+    /*
+     * Method to check whether the cat can nap yet or not 
+     * @returns: boolean 
+     */
     public boolean canNap(){
         //Ways to check if canNap() is working right 
         // System.out.println("parlor: "+ this.location.equals("parlor"));
@@ -170,9 +182,12 @@ public class Game {
         }
     }
     
+    /*
+     * Method to print out the status of the cat: the time left, whether it can nap yet or not. 
+     */
     public void printNapStatus(){  
         String currentTime=this.timeConvert(this.current=getTimeSeconds()-this.start);
-        System.out.println("\nIt is currently: "+currentTime+" PM. Remember, you need to take a nap before 7:00 PM");
+        System.out.println("\nIt is currently: "+currentTime+" PM. Remember, you need to take a nap before 7:00 PM!");
         if(this.haveEaten){
             this.slowPrint("* You have eaten.");
         } else{
@@ -197,7 +212,11 @@ public class Game {
         }
     }
     
-    //method to get neighbors
+    /*
+     * Method that returns a list of neighbors based on the current room
+     * @param: current Room
+     * @returns: Array list of neighbors 
+     */ 
     public ArrayList<Room> getNeighbors(Room current){
         Set<Room> setOfNeighbors= new HashSet<Room>();
         ArrayList<Room> listOfNeighbors= new ArrayList<Room>();
@@ -211,13 +230,21 @@ public class Game {
         return listOfNeighbors;
     }
 
-    //print neighbors
+    /*
+     * Method that prints a list of neighbors 
+     * @param: current Room
+     */
     public void printNeighbors(Room current){
         for (Room r : this.getNeighbors(current)){
             this.slowPrint("the "+r.getName()+" [go to the "+r.getName()+"]");
         }    
     }
 
+    /*
+     * Method that checks if a string is a room 
+     * @param: String room 
+     * @returns: boolean
+     */
     public boolean isARoom(String room){
         if (room.equals("bathroom") || room.equals("bedroom") || room.equals("garden")|| room.equals("parlor")||room.equals("kitchen")){
             return true;
@@ -226,6 +253,11 @@ public class Game {
         }
     }
 
+    /*
+     * Method that returns a room given a corresponding string
+     * @param: String name
+     * @returns: Room 
+     */
     public Room turnNameToRoom(String name){
         if(name.equals("kitchen")||name.equals("Kitchen")){
             return this.kitchen;
@@ -242,52 +274,85 @@ public class Game {
         if (name.equals("parlor")||name.equals("Parlor")){
             return this.parlor;
         }
+        //as to not throw an error 
         else{
-            //change 
             return this.kitchen;
         }
     }
 
+    /*
+     * Getter for this.location
+     */
     public String getLocation(){
         return this.location;
     }
 
+    /*
+     * Getter for this.climbedOn
+     */
     public Item getClimbedOn(){
         return this.climbedOn;
     }
 
+    /*
+     * Getter for this.haveDrunk
+     */
     public Boolean getHaveDrunk(){
         return this.haveDrunk;
     }
 
+    /*
+     * Getter for this.getHaveEaten
+     */
     public Boolean getHaveEaten(){
         return this.haveEaten;
     }
 
+    /*
+     * Setter for this.climbedOn
+     */
     public void changeClimbedOn(Item i){
         this.climbedOn=i;
     }
 
+    /*
+     * Setter for this.haveEaten
+     */
     public void changeHaveEaten(Boolean b){
         this.haveEaten=b;
     }
 
+    /*
+     * Setter for this.haveDrunk
+     */
     public void changeHaveDrunk(Boolean b){
         this.haveDrunk=b;
     }
 
+    /*
+     * Setter for this.changeHolding
+     */
     public void changeHolding(Item i){
         this.holding=i;
     }
 
+    /*
+     * Setter for this.stuckInBath
+     */
     public void changeStuckInBath(Boolean b){
         this.stuckInBath=b;
     }
 
+    /* 
+     * Setter for this.success
+    */
     public void changeSuccess(Boolean b){
         this.success=b;
     }
-        
+       
+    /*
+     * Method to get the current time in secodns format
+     */
     public Integer getTimeSeconds(){
         //getting current time
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -302,19 +367,25 @@ public class Game {
         return time;
     }
 
+    /*
+     * Method to convert the time in seconds to the game time 
+     * @param: int i (usually time elapsed)
+     * @returns: String
+     */
     public String timeConvert(int i){
         //pass in the time elapsed from the start of the game in seconds 
         //the total game is 300 sec in human time, 7 hours in cat time (7*60*60=25,200 sec)
         //convert to cat time 
         int sec=i*(25200/300);
-        System.out.println("this is the number of sec: "+sec);
         //Get the total hours passed
         int num=60*60;
         int hour=sec/num;
-        System.out.println("this is the number of hoours: "+sec);
+        //if the hour is 0, change to 12 
+        if(hour==0){
+            hour=12;
+        }
         //Get the leftover number of minutes 
         int min=sec/60;
-        System.out.println("this is the number of min: "+sec);
         //Initialize leftover min
         int leftoverMin=0;
         //Find the leftover amount of minutes 
@@ -322,9 +393,7 @@ public class Game {
             //if we have overshot
             if(j*60>min){
                 //then do the previous one
-                System.out.println("this is the j: "+j);
                 leftoverMin=min-(j-1)*60;
-                System.out.println("this is the number of leftover min: "+leftoverMin);
                 break;
             }
             //if it's still under, continue
@@ -341,6 +410,10 @@ public class Game {
         }
 
     }
+
+    /*
+     * Method to play the game. Prints out instructions, starts a scanner, maintains a while loop sending the responses to room classes while game is being played
+     */
     public void play(){
 
         System.out.println("\n"+"----------------------------------------------------------------------------------------------------------------------------------");
@@ -393,50 +466,7 @@ public class Game {
         while(gameGoing && !this.readyToNap && !this.stuckInBath){
             //reset success
             this.success=false;
-
-            // // TIMER SECTION 
-            // Timer timer=new Timer();
-            // long first=6000;
-            // long second=120000;
-            // long third=180000;
-            // //first warning
-            // timer.schedule(new TimerTask(){
-            //     public void run(){
-            //         if(this.ready){
-            //             this.slowPrint("It's already 2:24 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-            //             this.slowPrint("* have eaten");
-            //             this.slowPrint("* have drunk something");
-            //             this.slowPrint("* have a blanket to sleep on");
-            //             this.slowPrint("* be in direct sunlight \nBefore you can nap.");
-            //         }
-            //     }
-            // },first);
-            // //second warning
-            // timer.schedule(new TimerTask(){
-            //     public void run(){
-            //         if(this.ready){
-            //             this.slowPrint("It's already 3:48 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-            //             this.slowPrint("* have eaten");
-            //             this.slowPrint("* have drunk something");
-            //             this.slowPrint("* have a blanket to sleep on");
-            //             this.slowPrint("* be in direct sunlight \nBefore you can nap.");
-            //         }  
-            //     }
-            // },second);
-            // //third warning
-            // timer.schedule(new TimerTask(){
-            //     public void run(Boolean ready){
-            //         if(ready){
-            //             this.slowPrint("It's already 5:12 pm! Hurry-- you have to nap before the sun sets. Remember, you have to: ");
-            //             this.slowPrint("* have eaten");
-            //             this.slowPrint("* have drunk something");
-            //             this.slowPrint("* have a blanket to sleep on");
-            //             this.slowPrint("* be in direct sunlight \nBefore you can nap.");
-            //         }
-            //     }
-            // },third);
         
-
             System.out.println("");
 
             Room locationAsRoom=this.turnNameToRoom(this.location);
