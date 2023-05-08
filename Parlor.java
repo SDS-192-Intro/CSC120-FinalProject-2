@@ -1,14 +1,21 @@
 import java.util.ArrayList; 
 import java.util.Objects;
 
+/* 
+ * Child class of Room 
+ */
 public class Parlor extends Room{
     String name;
     String description;
 
+    /*
+     * Constructor of Parlor
+     */
     public Parlor(String name, String description,Game game){
         super(name, description,game);
     }
 
+    /* Extends conversatin in order to add "window seat" capabilities */
     public void conversation(ArrayList<String> wordList){
         //Redo methods for "window seat" (only item with two words)
         //find first two words
