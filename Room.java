@@ -2,6 +2,10 @@ import java.io.ObjectStreamClass;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/*
+ * Room class, parent class of Bathroom, Bedroom, Garden, Kitchen, and Parlor. 
+ * 
+ */
 public class Room {
     
     ArrayList<Item> items = new ArrayList<Item>();
@@ -10,6 +14,10 @@ public class Room {
     Item addressing;
     Game game;
 
+    /*
+     * Room constructor 
+     * @param: String name, String description, Game game 
+     */
     public Room (String name, String description, Game game){
         this.name=name;
         this.description=description;
@@ -17,18 +25,30 @@ public class Room {
         this.game=game;
     }
 
+    /*
+     * Getter for this.name
+     */
     public String getName(){
         return this.name;
     }
 
+    /*
+     * Getter for this.description 
+     */
     public String getDescription(){
         return this.description;
     }
 
+    /*
+     * Method to add item to the inventory 
+     */
     public void addItem(Item i){
         items.add(i);
     }
 
+    /* 
+     * Method to see items in a room 
+     */
     public String lookAround(){
         String toReturn="\nIn this room, there is: \n";
         for (int i=0; i<items.size(); i++){
@@ -43,6 +63,11 @@ public class Room {
         return toReturn+"\n";
     }
 
+    /*
+     * Method to test if an item is in a room 
+     * @param: Item 
+     * @returns: boolean
+     */
     public boolean isInRoom(Item i){
         if (items.contains(i)){
             return true;
@@ -51,6 +76,11 @@ public class Room {
         }
     }
 
+    /*
+     * Overloaded method to test if an item is in a rom 
+     * @param: string
+     * @returns: boolean
+     */
     public boolean isInRoom(String item){
         ArrayList<String> stringItems=new ArrayList<String>();
         for (Item i :items){
@@ -64,6 +94,11 @@ public class Room {
         }
     }
 
+    /*
+     * Method to get item given its name 
+     * @param: String 
+     * @returns: Item
+     */
     public Item returnItem(String item){
         for(Item i:this.items){
             if (item.equals(i.getName())){
@@ -73,6 +108,9 @@ public class Room {
         return null;
     }
 
+    /*
+     * Method that takes the array list of words that the user has sent in 
+     */
     public void conversation(ArrayList<String> wordList){
         //General note: change success attribute in game every time the program parses a response,
         //to determine whether or not to print a general error message 
@@ -197,6 +235,7 @@ public class Room {
                                 }
                                 else{
                                     this.game.changeSuccess(true);
+                                    
                                     this.game.slowPrint("The "+item.getChild().getName()+" is on top of the "+word3+".");
                                     this.game.slowPrint("\nTo get to the "+item.getChild().getName()+" try [go to the "+item.getChild().getName()+"].");
                                 }
@@ -311,7 +350,7 @@ public class Room {
                                 //Change climbedOn attribute in the game 
                                 this.game.changeClimbedOn(null);
                                 this.game.slowPrint("\nYou have jumped off of the "+item.getName()+".");
-                                this.game.slowPrint("You are now standing next to the "+item.getName()+" in the "+item.getName()+".");
+                                this.game.slowPrint("You are now standing next to the "+item.getName()+" in the "+this.getName()+".");
                                 this.game.slowPrint(this.lookAround()+"\nThere are doors connecting to: \n");
                                 this.game.printNeighbors(this);
                                 //throw runtime exception to avoid being caught in the final conditional
@@ -366,11 +405,13 @@ public class Room {
                     }
                     //If we are not at the item
                     else{
+                        this.game.changeSuccess(true);
                         this.game.slowPrint("You need to be at the "+word3+" in order to eat it. Try [go to the "+word3+"].");
                     }
                 }
                 //If we have already eaten
                 else{
+                    this.game.changeSuccess(true);
                     this.game.slowPrint("\nYou have already eaten the "+word3+".\n");
                 }
             }
@@ -393,6 +434,7 @@ public class Room {
                     if(this.addressing.equals(item)){
                         //If the item is drinkable 
                         if(item.isDrinkable){
+                            this.game.changeSuccess(true);
                             this.game.changeHaveDrunk(true);
                             this.game.slowPrint("\nSlurrrp!!! So refreshing!");
                             this.game.slowPrint("\nCurrent status: ");
@@ -403,11 +445,13 @@ public class Room {
                     }
                     //If we are not at the item
                     else{
+                        this.game.changeSuccess(true);
                         this.game.slowPrint("You need to be at the "+word3+" in order to drink it. Try [go to the "+word3+"].");
                     }
                 }
                 //If we have already drunk it 
                 else{
+                    this.game.changeSuccess(true);
                     this.game.slowPrint("You have already drunk the "+word3+".\n");
                 }
             }
